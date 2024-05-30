@@ -42,6 +42,12 @@ class llhRotation():
             {"proj":'latlong', "ellps":'WGS84', "datum":'WGS84'},
             )
         lon, lat, h = transformer2.transform(coord[0],coord[1],coord[2],radians=False)
+        if(lon>0):
+            lon = 360-lon
+        else:
+            lon = lon
         final_coord = [lat, lon, h]
         return final_coord 
+    
+
 

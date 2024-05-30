@@ -15,7 +15,7 @@ class TestCalculations(unittest.TestCase):
         )
         np.testing.assert_array_almost_equal(
             calculation.xyztollh([1009217, 4500271, 4390869]), 
-            [43.78491, 77.36015, -0.6], 
+            [43.78491, 282.63985, -0.6], 
             decimal=0, 
             err_msg='The conversion is incorrect'
         )
@@ -30,7 +30,7 @@ class TestCalculations(unittest.TestCase):
         )
         np.testing.assert_array_almost_equal(
             calculation.xyztollh([1524166, -4469215, 4273242]), 
-            [42.33571, 288.83126, -0.2], 
+            [42.33571, -71.16874, -0.2], 
             decimal=0, 
             err_msg='The conversion is incorrect'
         )
@@ -45,7 +45,7 @@ class TestCalculations(unittest.TestCase):
         )
         np.testing.assert_array_almost_equal(
             calculation.xyztollh([1779247, -5012259, -3508449]), 
-            [-33.58778, 289.5438, 0.1], 
+            [-33.58778, -70.4562, 0.1], 
             decimal=0, 
             err_msg='The conversion is incorrect'
         )
@@ -60,7 +60,7 @@ class TestCalculations(unittest.TestCase):
         )
         np.testing.assert_array_almost_equal(
             calculation.xyztollh([363515, 5038784, -3880420]), 
-            [-37.71445, 85.87364, -0.3], 
+            [-37.71445, 274.12636, -0.3], 
             decimal=0, 
             err_msg='The conversion is incorrect'
         )

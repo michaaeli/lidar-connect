@@ -13,7 +13,7 @@ class llhRotation():
         self.converted_lidar = self.llhtoxyz()
 
     def local_to_global(self, x, y, z):
-        coord_sum = self.calc_rotation(x, y, z) + self.llhtoxyz()
+        coord_sum = self.calc_rotation(x, y, z) + self.converted_lidar
         final_coord = self.xyztollh(coord_sum)
         return final_coord
 
@@ -49,5 +49,17 @@ class llhRotation():
         final_coord = [lat, lon, h]
         return final_coord 
     
+    @staticmethod
+    def get_bearing(lat1, lon1, lat2, lon2):
+        geodesic = pyproj.Geod(ellps='WGS84')
+        fwd_azimuth,back_azimuth,distance = geodesic.inv(lon1, lat1, lon2, lat2)
+        return fwd_azimuth 
+
+    
+test = llhRotation(34.077786, -117.702655, 40, 0)
+print(test.local_to_global(0, 1303.57, 0))
+
+print(test.get_bearing(34.077786, -117.702655, 34.080581, -117.710441))
 
 
+# (0,0,-40)

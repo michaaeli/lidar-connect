@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import pyproj
+from local_coords_to_global import xy2latlon
 
 class getLLH():
     def __init__(self, lat, lon, lat2, lon2, x, y):
@@ -19,8 +20,9 @@ class getLLH():
     def get_bearing(self):
         geodesic = pyproj.Geod(ellps='WGS84')
         fwd_azimuth,back_azimuth,distance = geodesic.inv(self.lon, self.lat, self.lon2, self.lat2)
-        print("bearing: ", back_azimuth)
-        return back_azimuth 
+        #back_azimuth = -1 * back_azimuth
+        print("bearing: ", fwd_azimuth)
+        return fwd_azimuth 
     
     def get_alpha(self):
         alpha = math.degrees(math.atan(self.y/self.x))
@@ -43,9 +45,23 @@ class getLLH():
         north, west = self.get_nw(alpha, beta, bearing, distance)
         obj_coord = [self.lat + north * c1, self.lon + west * c2]
         return obj_coord
+    
+    def experimental(self):
+        az = self.get_bearing()
+        alpha = math.degrees(math.atan(self.y/self.x))
+        print(f"alpha = {alpha}")
+        d = math.sqrt(self.x*self.x + self.y*self.y)
+        x = math.cos(math.radians(alpha-az))*d
+        y = math.sin(math.radians(alpha-az))*d
+        print(f"x = {x} \ny = {y}")
+
+        lat, lon = xy2latlon(x, y, self.lat, self.lon)
+        return [lat, lon]
         
-x = getLLH(40.442871, -79.957895, 40.444236, -79.956874, 209.215, 788.579)
-print(x.global_coord())
+        
+x = getLLH(40.443893, -79.95858, 40.444363, -79.958519, 50, 70)
+#print(x.global_coord())
+print(x.experimental())
 
 
 # test 1
@@ -54,3 +70,15 @@ print(x.global_coord())
 # x = 61.8744
 # y = 111.252
        
+
+# test 2
+# x = getLLH(40.443893, -79.95858, 40.444363, -79.958519, 30, 50)
+# Expected 40.444327, -79.958183
+# Actual   40.444394, -79.958062
+
+
+# test 2
+# x = getLLH(40.443893, -79.95858, 40.444363, -79.958519, 50, 70)
+# Expected 40.444484, -79.957933
+# Actual   40.444394, -79.958062
+#          40.443123, -79.958499

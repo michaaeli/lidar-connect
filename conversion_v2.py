@@ -20,7 +20,7 @@ class getLLH():
         geodesic = pyproj.Geod(ellps='WGS84')
         fwd_azimuth,back_azimuth,distance = geodesic.inv(self.lon, self.lat, self.lon2, self.lat2)
         print("bearing: ", back_azimuth)
-        return back_azimuth 
+        return fwd_azimuth 
     
     def get_alpha(self):
         alpha = math.degrees(math.atan(self.y/self.x))
@@ -34,8 +34,9 @@ class getLLH():
         return north_coord, west_coord
     
     def global_coord(self):
+        lat_rad = math.radians(self.lat)
         c1 = 360/40008000 #lat angle for 1 meter
-        c2 = 360/40007000 #lon angle for 1 meter
+        c2 = 360/(40075000) #lon angle for 1 meter
         distance = self.get_distance()
         bearing = self.get_bearing()
         alpha = self.get_alpha()
@@ -44,13 +45,13 @@ class getLLH():
         obj_coord = [self.lat + north * c1, self.lon + west * c2]
         return obj_coord
         
-x = getLLH(40.442871, -79.957895, 40.444236, -79.956874, 209.215, 788.579)
+x = getLLH(40.443322, -79.958631, 40.443868, -79.958409, 62.1792, 114.91)
 print(x.global_coord())
 
 
 # test 1
-# lat1 lon1 - (40.443323, -79.958623)
-# lat2 lon2 - (40.444011, -79.958346)
-# x = 61.8744
-# y = 111.252
+# lat1 lon1 - (33.824665, -118.002167)
+# lat2 lon2 - (33.833730, -118.007635)
+# x = 804.672
+# y = 1625.437
        

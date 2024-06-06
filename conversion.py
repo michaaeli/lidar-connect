@@ -49,8 +49,7 @@ class llhRotation():
         final_coord = [lat, lon, h]
         return final_coord 
     
-    @staticmethod
-    def get_bearing(lat1, lon1, lat2, lon2):
+    def get_bearing(self, lat1, lon1, lat2, lon2):
         geodesic = pyproj.Geod(ellps='WGS84')
         fwd_azimuth,back_azimuth,distance = geodesic.inv(lon1, lat1, lon2, lat2)
         return fwd_azimuth 

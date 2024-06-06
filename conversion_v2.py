@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import pyproj
-from local_coords_to_global import xy2latlon
+from local_coords_to_global import xy2latlon, compute_destination_point
 
 class getLLH():
     def __init__(self, lat, lon, lat2, lon2, x, y):
@@ -37,7 +37,7 @@ class getLLH():
     
     def global_coord(self):
         c1 = 360/40008000 #lat angle for 1 meter
-        c2 = 360/40007000 #lon angle for 1 meter
+        c2 = 360/40075000 #lon angle for 1 meter
         distance = self.get_distance()
         bearing = self.get_bearing()
         alpha = self.get_alpha()
@@ -57,11 +57,28 @@ class getLLH():
 
         lat, lon = xy2latlon(x, y, self.lat, self.lon)
         return [lat, lon]
-        
+    
+    def experimental2(self):
+        az = self.get_bearing()
+        print(f"az: {az}")
+        d = math.sqrt(self.x*self.x + self.y*self.y)
+        final_bearing = az
+        cos_alpha = self.x/d
+        alpha = np.rad2deg(np.arccos(cos_alpha))
+        print(f"alpha: {alpha}")
+        if alpha > 90:
+            final_bearing -= 90 - alpha
+        else :
+            final_bearing += 90 - alpha
+        print(f"final_bearing: {final_bearing}")
+
+
+        return compute_destination_point(self.lat, self.lon, d, final_bearing)
+
         
 x = getLLH(40.443893, -79.95858, 40.444363, -79.958519, 50, 70)
 #print(x.global_coord())
-print(x.experimental())
+print(x.experimental2())
 
 
 # test 1

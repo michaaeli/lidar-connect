@@ -66,17 +66,14 @@ class getLLH():
         cos_alpha = self.x/d
         alpha = np.rad2deg(np.arccos(cos_alpha))
         print(f"alpha: {alpha}")
-        if alpha > 90:
-            final_bearing -= 90 - alpha
-        else :
-            final_bearing += 90 - alpha
+        final_bearing += 90 - alpha
         print(f"final_bearing: {final_bearing}")
 
 
         return compute_destination_point(self.lat, self.lon, d, final_bearing)
 
         
-x = getLLH(40.443893, -79.95858, 40.444363, -79.958519, 50, 70)
+x = getLLH(40.443893, -79.95858, 40.444363, -79.958519, -50, 70)
 #print(x.global_coord())
 print(x.experimental2())
 

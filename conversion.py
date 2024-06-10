@@ -1,53 +1,29 @@
-import json
 import math
 import numpy as np
 import pyproj
+from local_coords_to_global import compute_destination_point
 
-class llhRotation():
-    def __init__(self, lat, lon, h, bear):
+class convert_object():
+    def __init__(self, lat, lon, lat2, lon2):
         self.lat = lat
         self.lon = lon
-        self.h = h
-        self.bear = math.radians(bear)
+        self.lat2 = lat2
+        self.lon2 = lon2
+        self.az = self.get_bearing()
         
-        self.converted_lidar = self.llhtoxyz()
+    def get_bearing(self):
+        geodesic = pyproj.Geod(ellps='WGS84')
+        fwd_azimuth,back_azimuth,distance = geodesic.inv(self.lon, self.lat, self.lon2, self.lat2)
+        return fwd_azimuth 
+    
+    def get_final_coords(self, x, y):
+        d = math.sqrt(x*x + y*y)
+        final_bearing = self.az
+        cos_alpha = x/d
+        alpha = np.rad2deg(np.arccos(cos_alpha))
+        final_bearing += 90 - alpha
 
-    def local_to_global(self, x, y, z):
-        coord_sum = self.calc_rotation(x, y, z) + self.llhtoxyz()
-        final_coord = self.xyztollh(coord_sum)
-        return final_coord
+        return compute_destination_point(self.lat, self.lon, d, final_bearing)
 
-    def calc_rotation(self, x, y, z):
-        local_coord = np.array([x, y, z])
-        rot_matrix = np.array([[math.cos(self.bear), -(math.sin(self.bear)), 0],
-                      [math.sin(self.bear), math.cos(self.bear), 0],
-                      [0, 0, 1]])
-        for i in range(3):
-            rot_matrix[:, i] *= local_coord[i]
-        rot_coord = np.sum(rot_matrix, axis = 1)
-        return rot_coord
-    
-    def llhtoxyz(self):
-        transformer = pyproj.Transformer.from_crs(
-            {"proj":'latlong', "ellps":'WGS84', "datum":'WGS84'},
-            {"proj":'geocent', "ellps":'WGS84', "datum":'WGS84'},
-            )
-        x, y, z = transformer.transform(self.lon,self.lat,self.h,radians = False)
-        lidar_coord = np.array([x, y, z])
-        return lidar_coord
-    
-    def xyztollh(self, coord):
-        transformer2 = pyproj.Transformer.from_crs(
-            {"proj":'geocent', "ellps":'WGS84', "datum":'WGS84'},
-            {"proj":'latlong', "ellps":'WGS84', "datum":'WGS84'},
-            )
-        lon, lat, h = transformer2.transform(coord[0],coord[1],coord[2],radians=False)
-        if(lon>0):
-            lon = 360-lon
-        else:
-            lon = lon
-        final_coord = [lat, lon, h]
-        return final_coord 
-    
 
 

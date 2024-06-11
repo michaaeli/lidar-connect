@@ -1,0 +1,11 @@
+rest:
+  url: "http://localhost:3000/cars"
+  port: 3000 
+
+lidar_coords:
+  lat1: 33.730979
+  lon1: -117.937358
+  lat2: 33.736142
+  lon2: -117.943838
+
+#logger level

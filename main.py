@@ -29,9 +29,9 @@ data = {
     "color" : "Silver",
     "price" : 75000
 }
-
-car = Server(url)
-car.send_objects(data)
+if __name__ == "__main__":
+    car = Server(url)
+    car.send_objects(data)
 
 #class Server(url):
     #if(url)

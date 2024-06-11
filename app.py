@@ -1,9 +1,17 @@
 from receiver import Receiver, Data
 from conversion import ConvertObject
 from main import Server
+import logging
 
 class Application():
     def __init__(self):
+        #logger
+        logging.basicConfig( level=logging.INFO, filename='app.log',
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S')
+        self.logger = logging.getLogger('test')
+        self.logger.debug('debug message')
+        self.logger.info('info message')
         #receiver
         self.data_source = Data()
         self.converter = self.data_source.convert()

@@ -1,7 +1,9 @@
 from conversion import ConvertObject
 
 class Receiver():
-    def __init__(self, data_source, converter, result_queue):
+    def __init__(self, logger, data_source, converter, result_queue):
+        self.logger = logger
+        self.logger.info("Receiver initialized")
         self.data_source = data_source
         self.converter = converter
         self.result_queue = result_queue
@@ -12,11 +14,17 @@ class Receiver():
         #test code
         data_to_convert = self.data_source
         result = self.converter.get_final_coords(-1142.63, 1110.45)
+        if(result!=float):
+            self.logger.error("not a float")
         return result
     
     def enqueue(self):
         self.result_queue.append(self.convert())
-        return self.result_queue
+        if(len(self.result_queue)<=0):
+            self.logger.error("0 or less entries")
+        else:
+            self.logger.info("new entry queued")
+        return self.result_queue 
     
 class Data():
     def __init__(self) -> None:
@@ -26,6 +34,9 @@ class Data():
         x = 0
         y = 1
         z = 2
+        list = [x,y,z]
+        if(len(list)<3):
+            self.logger.error("at least 1 entry missing")
         return [x, y, z]
 
 # test 3

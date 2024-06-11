@@ -2,7 +2,9 @@ import json
 import requests
 
 class Server():
-    def __init__(self, url):
+    def __init__(self, logger, url):
+        self.logger = logger
+        self.logger.info("Server Initialized")
         self.url = url
         self.check_status()
 
@@ -13,6 +15,7 @@ class Server():
                 print("Server is up.")
                 return True
         except:
+            self.logger.error("0 or less entries")
             raise Exception("Make sure everything is running")
 
     def send_objects(self, data):

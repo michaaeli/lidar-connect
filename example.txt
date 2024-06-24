@@ -1,0 +1,211 @@
+
+Timestamp: 2024-06-24 13:35:37.908962 , 1719250537.9089615
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"466622","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.118039","z":"8.110168","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250537908,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:37.999048 , 1719250537.9990482
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"466722","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.119123","z":"8.114815","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250537998,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.089197 , 1719250538.0891967
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"466822","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.120206","z":"8.119461","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538089,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.179398 , 1719250538.1793976
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"466922","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.121290","z":"8.124108","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538179,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.269499 , 1719250538.269499
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250538269,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.359592 , 1719250538.3595922
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467022","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.122374","z":"8.128756","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538359,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.449728 , 1719250538.4497285
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467122","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.123458","z":"8.133402","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538449,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.539908 , 1719250538.539908
+b'{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.124541","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538539,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.630184 , 1719250538.6301837
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467322","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.104140","z":"8.107515","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538629,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.720443 , 1719250538.7204432
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467422","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.103488","z":"8.109320","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538720,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.810526 , 1719250538.8105257
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467522","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.102837","z":"8.111125","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538810,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.900632 , 1719250538.9006321
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467622","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.102185","z":"8.112929","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538900,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:38.990895 , 1719250538.9908946
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467722","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.101533","z":"8.114735","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538990,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.081016 , 1719250539.0810158
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467822","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.100881","z":"8.116539","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539080,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.171041 , 1719250539.1710408
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250539170,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.261174 , 1719250539.261174
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"467922","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.100229","z":"8.118344","zone_id":"null"},{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"468022","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.099577","z":"8.120149","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539261,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.351354 , 1719250539.3513536
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250539351,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.441590 , 1719250539.44159
+b'{"cmd":"2001","object_list":[{"height":"1.413005","length":"1.605140","length_type":"00","object_id":"1138815","object_timestamp":"468122","object_type":"2","speed":"0.036000","width":"0.613844","x":"-0.846615","y":"-2.098926","z":"8.121954","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539441,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.531666 , 1719250539.5316663
+b'{"cmd":"2001","object_list":[{"height":"1.413514","length":"1.607176","length_type":"00","object_id":"1138815","object_timestamp":"468221","object_type":"2","speed":"0.036000","width":"0.615535","x":"-0.862914","y":"-2.089839","z":"8.097582","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539531,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.621740 , 1719250539.62174
+b'{"cmd":"2001","object_list":[{"height":"1.413514","length":"1.607176","length_type":"00","object_id":"1138815","object_timestamp":"468321","object_type":"2","speed":"0.036000","width":"0.615535","x":"-0.862914","y":"-2.088502","z":"8.097260","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539621,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.711870 , 1719250539.7118702
+b'{"cmd":"2001","object_list":[{"height":"1.414139","length":"1.609923","length_type":"00","object_id":"1138815","object_timestamp":"468422","object_type":"2","speed":"0.072000","width":"0.616192","x":"-0.842315","y":"-2.119796","z":"8.106531","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539711,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.802128 , 1719250539.8021283
+b'{"cmd":"2001","object_list":[{"height":"1.411679","length":"1.606856","length_type":"00","object_id":"1138815","object_timestamp":"468522","object_type":"2","speed":"0.000000","width":"0.615953","x":"-0.834023","y":"-2.108079","z":"8.102873","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539801,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:35:39.892239 , 1719250539.8922389
+b'{"cmd":"2001","object_list":[{"height":"1.411679","length":"1.606856","length_type":"00","object_id":"1138815","object_timestamp":"468622","object_type":"2","speed":"0.000000","width":"0.615953","x":"-0.834023","y":"-2.108767","z":"8.103111","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250539891,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:39.932321 , 1719250899.9323206
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250899931,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.022384 , 1719250900.0223837
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900022,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.112533 , 1719250900.1125329
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900112,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.202641 , 1719250900.2026412
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900202,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.292598 , 1719250900.292598
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900292,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.382830 , 1719250900.38283
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900382,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.472867 , 1719250900.4728665
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900472,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.562865 , 1719250900.5628653
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900562,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.653005 , 1719250900.6530046
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900652,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.743206 , 1719250900.7432058
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900742,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.833339 , 1719250900.8333392
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900833,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:40.923435 , 1719250900.9234354
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250900923,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.013590 , 1719250901.0135896
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901013,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.103681 , 1719250901.1036813
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901103,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.193811 , 1719250901.193811
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901193,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.283867 , 1719250901.2838674
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901283,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.374093 , 1719250901.3740926
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901373,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.464107 , 1719250901.4641068
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901463,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.554303 , 1719250901.5543027
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901554,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.644458 , 1719250901.6444576
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901644,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.734464 , 1719250901.7344644
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901734,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.824742 , 1719250901.8247423
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901824,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:41.914860 , 1719250901.9148595
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250901914,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.004987 , 1719250902.0049875
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902004,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.095051 , 1719250902.0950506
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902094,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.185050 , 1719250902.1850495
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902184,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.275140 , 1719250902.2751403
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902274,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.365366 , 1719250902.3653665
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902365,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.455558 , 1719250902.4555576
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902455,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.545609 , 1719250902.5456092
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902545,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.635737 , 1719250902.6357372
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902635,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.725923 , 1719250902.725923
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902725,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.816002 , 1719250902.816002
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902815,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.906103 , 1719250902.906103
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902905,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:42.996216 , 1719250902.9962158
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250902995,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.086253 , 1719250903.0862532
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903086,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.176356 , 1719250903.1763556
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903176,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.266577 , 1719250903.2665775
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903266,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.356589 , 1719250903.3565893
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903356,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.446675 , 1719250903.4466753
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903446,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.536864 , 1719250903.5368638
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903536,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.627048 , 1719250903.6270485
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903626,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.717156 , 1719250903.7171564
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903716,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.807238 , 1719250903.807238
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903807,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.897313 , 1719250903.897313
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903897,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:43.987297 , 1719250903.9872968
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250903987,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------
+Timestamp: 2024-06-24 13:41:44.077560 , 1719250904.0775604
+b'{"cmd":"2001","object_list":[],"server_ip":"0.0.0.0","sys_timestamp":1719250904077,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+--------------------------------

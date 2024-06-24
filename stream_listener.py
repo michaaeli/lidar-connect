@@ -46,6 +46,8 @@ async def consume_stream():
             parsed = json.loads(message)
             if parsed["object_list"] == None:
                 break
+            if len(parsed["object_list"]) == 0:
+                break
             current_timestamp = time.time()
             dt = datetime.datetime.fromtimestamp(current_timestamp)
             with open('example.txt', 'a') as file:

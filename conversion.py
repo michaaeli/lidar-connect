@@ -3,8 +3,10 @@ import numpy as np
 import pyproj
 from local_coords_to_global import compute_destination_point
 
-class convert_object():
-    def __init__(self, lat, lon, lat2, lon2):
+class ConvertObject():
+    def __init__(self, logger, lat, lon, lat2, lon2):
+        self.logger = logger
+        self.logger.info("Converter Initialized")
         self.lat = lat
         self.lon = lon
         self.lat2 = lat2
@@ -22,7 +24,6 @@ class convert_object():
         cos_alpha = x/d
         alpha = np.rad2deg(np.arccos(cos_alpha))
         final_bearing += 90 - alpha
-
         return compute_destination_point(self.lat, self.lon, d, final_bearing)
 
 

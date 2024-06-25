@@ -3,6 +3,7 @@ from conversion import ConvertObject
 from main import Server
 from read_config import Config
 import logging
+import queue
 
 class Application():
     def __init__(self):
@@ -24,11 +25,19 @@ class Application():
         #receiver
         self.data_source = Data()
         self.converter = self.coordinate_converter
-        self.result_queue = []
+        self.result_queue = queue.Queue()
         self.data_receiever = Receiver(self.logger, self.data_source, self.converter, self.result_queue)
         #main/server
         self.url = Config() #temp url
         self.backend_connection = Server(self.logger, self.url.get_connection())
+
+
+    def close(self) -> None:
+        """Executes graceful shutdown"""
+        # Stop stream listener
+        # TODO
+        # Join queue
+        self.result_queue.join()
 
 if __name__ == "__main__":
     app = Application()

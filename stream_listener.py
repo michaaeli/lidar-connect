@@ -1,25 +1,70 @@
 
 import asyncio
-import websockets
+import socket
+import struct
+import json
+import time
+import datetime
+import sys
 
-CONN_STR = "ws://localhost/seyondOdWs/stream?connect_id=6"
+
+SERVER_HOST = '127.0.0.1'
+SERVER_PORT = 3380
 
 async def consume_stream():
-    uri = "ws://localhost:3380"  # Replace with your WebSocket server URI
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    client_socket.connect((SERVER_HOST, SERVER_PORT))
+    buffer = b''
     while True:
-        try:
-            async with websockets.connect(uri) as websocket:
-                print("Connected to the WebSocket server")
-                while True:
-                    message = await websocket.recv()
-                    print(f"Received message: {message}")
-                    # Process the message here
-        except websockets.ConnectionClosed:
-            print("Connection closed, retrying in 5 seconds...")
-            await asyncio.sleep(5)  # Wait before retrying
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            await asyncio.sleep(5)  # Wait before retrying
+        response = client_socket.recv(1024)
+        #print("Received:", response.decode())
+        if not response:
+            break
+        buffer += response
+        text = ''.join(chr(byte) for byte in response)
+        current_timestamp1 = time.time()
+        dt1 = datetime.datetime.fromtimestamp(current_timestamp1)
+        while True:
+            if (len(buffer) < 8):
+                break
+            header = struct.unpack('!H', buffer[0:2])[0]
+            if (header != 0xFFAA):
+                print("Invalid packet header")
+                break
+
+            message_length = struct.unpack('!I', buffer[2:6])[0]
+            if (len(buffer) < message_length):
+                break  # wait for more data
+
+            tail = struct.unpack('!H', buffer[message_length-2:message_length])[0]
+            if tail != 0xEEEE:
+                print ("Invalid tail")
+                break
+            message = buffer[6:message_length-2]
+            #formated_str = format_json(message)
+            parsed = json.loads(message)
+            if parsed["object_list"] == None:
+                break
+            if len(parsed["object_list"]) == 0:
+                break
+            current_timestamp = time.time()
+            dt = datetime.datetime.fromtimestamp(current_timestamp)
+            with open('example.txt', 'a') as file:
+                file.write("\n")
+                file.write (f"Timestamp: {dt} , {current_timestamp}")
+                file.write("\n")
+                file.write(f"{message}")
+                file.write("\n")
+                file.write("--------------------------------")
+            #print (f"Message = {formated_str}")
+            #print ("\n\n\n\n\n\n\n")
+            buffer = buffer[message_length:]
+        sys.stdout.write("\r" + str(dt1))
+        sys.stdout.flush()  # Ensure it gets displayed
+        #print(text)  # Output text value
+
+    client_socket.close()
 
 if __name__ == "__main__":
     asyncio.run(consume_stream())

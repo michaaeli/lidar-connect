@@ -51,7 +51,10 @@ def main():
                 print ("Invalid tail")
                 break
             message = buffer[6:message_length-2]
-            formated_str = format_json(message)
+            #formated_str = format_json(message)
+            parsed = json.loads(message)
+            if parsed["object_list"] == None:
+                break
             current_timestamp = time.time()
             dt = datetime.datetime.fromtimestamp(current_timestamp)
             with open('example.txt', 'a') as file:

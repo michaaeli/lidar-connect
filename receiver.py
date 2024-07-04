@@ -1,4 +1,7 @@
 from conversion import ConvertObject
+from data.detected_objects import DetectedObject
+from read_config import Config
+import datetime
 
 class Receiver():
     def __init__(self, logger, data_source, converter, result_queue):
@@ -9,11 +12,13 @@ class Receiver():
         self.result_queue = result_queue
 
     def convert(self):
-        # self.data_source = Data()
-        # data_to_convert = self.data_source.get_data()
+        self.data_source = Data()
+        data_to_convert = self.data_source.get_data()
         #test code
-        data_to_convert = self.data_source
-        result = self.converter.get_final_coords(-1142.63, 1110.45)
+        coords = Config()
+        lidar_pos = coords.get_lidar_pos()
+
+        result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
         if(result!=float):
             self.logger.error("not a float")
         return result
@@ -31,22 +36,23 @@ class Data():
         pass
 
     def get_data(self):
-        x = 0
-        y = 1
-        z = 2
-        list = [x,y,z]
+        data = DetectedObject(123, 12, 12, 12, datetime.datetime.now(), 3)
         if(len(list)<3):
             self.logger.error("at least 1 entry missing")
-        return [x, y, z]
+        return data
 
 # test 3
 # x = getLLH(33.730979, -117.937358, 33.736142, -117.943838, -1142.63, 1110.45)
 # Expected 33.737889, -117.946033
 # Actual   33.730433665414175, -117.95457518440682
 if __name__ == "__main__":
-    data1 = (33.730979, -117.937358, 33.736142, -117.943838)
+    
+    coords = Config()
+    lidar_pos = coords.get_lidar_pos()
+    
+    data1 = (lidar_pos[0], lidar_pos[1], lidar_pos[2], lidar_pos[3])
     arr = []
-    i = ConvertObject(33.730979, -117.937358, 33.736142, -117.943838)
+    i = ConvertObject(lidar_pos[0], lidar_pos[1], lidar_pos[2], lidar_pos[3])
 
     x = Receiver(data1, i, arr)
     print(x.convert())

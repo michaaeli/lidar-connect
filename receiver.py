@@ -2,6 +2,7 @@ from conversion import ConvertObject
 from data.detected_objects import DetectedObject
 from read_config import Config
 import datetime
+import logging
 
 class Receiver():
     def __init__(self, logger, data_source, converter, result_queue):
@@ -15,11 +16,12 @@ class Receiver():
         self.data_source = Data()
         data_to_convert = self.data_source.get_data()
         #test code
-        coords = Config()
-        lidar_pos = coords.get_lidar_pos()
+        # coords = Config()
+        # lidar_pos = coords.get_lidar_pos()
 
         result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
-        if(result!=float):
+        data_to_convert.set_global_coordinates(result[0],result[1], 0.0)
+        if(result[0]!=float or result[1]!=float):
             self.logger.error("not a float")
         return result
     

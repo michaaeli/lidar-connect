@@ -2,6 +2,7 @@ import math
 import numpy as np
 import pyproj
 from local_coords_to_global import compute_destination_point
+import logging
 
 class ConvertObject():
     def __init__(self, logger, lat, lon, lat2, lon2):

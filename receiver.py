@@ -38,7 +38,7 @@ class Data():
         pass
 
     def get_data(self):
-        data = DetectedObject(123, 12, 12, 12, datetime.datetime.now(), 3)
+        data = DetectedObject(123, 12, 12, 0, datetime.datetime.now(), 3)
         if(len(list)<3):
             self.logger.error("at least 1 entry missing")
         return data

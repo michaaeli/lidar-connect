@@ -18,6 +18,9 @@ class Receiver():
         #test code
         # coords = Config()
         # lidar_pos = coords.get_lidar_pos()
+        coords = Config()
+        lidar_pos = coords.get_lidar_pos()
+        self.converter = ConvertObject(self.logger, lidar_pos[0], lidar_pos[1], lidar_pos[2], lidar_pos[3])
 
         result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
         data_to_convert.set_global_coordinates(result[0],result[1], 0.0)

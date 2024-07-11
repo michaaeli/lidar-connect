@@ -3,24 +3,29 @@ from data.detected_objects import DetectedObject
 from read_config import Config
 import datetime
 import logging
+import queue
+
+class Data():
+    def __init__(self) -> None:
+        pass
+
+    def get_data(self) -> DetectedObject:
+        data = DetectedObject(123, 12, 12, 0, datetime.datetime.now(), 3)
+        if(len(list)<3):
+            self.logger.error("at least 1 entry missing")
+        return data
 
 class Receiver():
-    def __init__(self, logger, data_source, converter, result_queue):
+    def __init__(self, logger, data_source : Data, converter : ConvertObject, result_queue : queue.Queue):
         self.logger = logger
         self.logger.info("Receiver initialized")
         self.data_source = data_source
-        self.converter = converter
+        self.converter = converter 
         self.result_queue = result_queue
 
     def convert(self):
-        self.data_source = Data()
         data_to_convert = self.data_source.get_data()
         #test code
-        # coords = Config()
-        # lidar_pos = coords.get_lidar_pos()
-        coords = Config()
-        lidar_pos = coords.get_lidar_pos()
-        self.converter = ConvertObject(self.logger, lidar_pos[0], lidar_pos[1], lidar_pos[2], lidar_pos[3])
 
         result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
         data_to_convert.set_global_coordinates(result[0],result[1], 0.0)
@@ -29,22 +34,16 @@ class Receiver():
         return result
     
     def enqueue(self):
-        self.result_queue.append(self.convert())
-        if(len(self.result_queue)<=0):
+        self.result_queue.put(self.convert())
+        if(self.result_queue.qsize()<=0):
             self.logger.error("0 or less entries")
         else:
             self.logger.info("new entry queued")
         return self.result_queue 
     
-class Data():
-    def __init__(self) -> None:
-        pass
-
-    def get_data(self):
-        data = DetectedObject(123, 12, 12, 0, datetime.datetime.now(), 3)
-        if(len(list)<3):
-            self.logger.error("at least 1 entry missing")
-        return data
+    def process(self):
+        self.convert()
+        self.enqueue()
 
 # test 3
 # x = getLLH(33.730979, -117.937358, 33.736142, -117.943838, -1142.63, 1110.45)

@@ -7,7 +7,9 @@ MINLON = -180
 MAXLON = 180
 
 
-def compute_destination_point(lat, lon, distance, bearing, radius=RADIUS_EARTH)->list[float]:
+# Translated Geolib-JS function
+def compute_destination_point(lat, lon, distance, bearing, radius=RADIUS_EARTH) -> list[float]:
+    """Returns [Latitude, Longitude]"""
     delta = distance / radius
     theta = np.deg2rad(bearing)
 

@@ -39,13 +39,3 @@ class DetectedObject:
     
     def __str__(self) -> str:
         return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.width}\nLength: {self.length}\nHeight: {self.height}\nTime: {self.time}"
-
-
-# o = DetectedObject(123, 12, 12, 12, datetime.datetime.now(), 3)
-# print(str(o))
-
-# def convert_time(ts) -> datetime:
-#     return datetime.datetime.fromtimestamp((ts%1000)/1000 + ts//1000)
-
-
-# print(convert_time(1719250538089))

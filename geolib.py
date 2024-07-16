@@ -8,6 +8,8 @@ MAXLON = 180
 
 
 # Translated Geolib-JS function
+
+
 def compute_destination_point(lat, lon, distance, bearing, radius=RADIUS_EARTH) -> list[float]:
     """Returns [Latitude, Longitude]"""
     delta = distance / radius

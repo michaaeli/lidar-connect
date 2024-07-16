@@ -1,10 +1,11 @@
 import yaml
 
+
 class Config():
     def __init__(self) -> None:
         with open("config.yml", "r") as f:
             self.data = yaml.safe_load(f)
-            
+
     def get_connection(self):
         url = self.data['rest']['url']
         return url
@@ -15,9 +16,3 @@ class Config():
         lat2 = self.data['lidar_coords']['lat2']
         lon2 = self.data['lidar_coords']['lon2']
         return [lat1, lon1, lat2, lon2]
-        
-
-
-
-       
-

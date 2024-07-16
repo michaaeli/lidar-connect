@@ -14,6 +14,7 @@ class Data():
     def get_data(self) -> DetectedObject:
         return None
 
+
 class Receiver():
     def __init__(self, logger, data_source : Data, converter : ConvertObject, result_queue : queue.Queue):
         self.logger = logger
@@ -31,7 +32,7 @@ class Receiver():
         if(result[0]!=float or result[1]!=float):
             self.logger.error("not a float")
         return result
-    
+
     def enqueue(self):
         self.result_queue.put(self.convert())
         if(self.result_queue.qsize()<=0):

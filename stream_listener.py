@@ -46,7 +46,7 @@ class StreamListener:
             if not response:
                 break
             buffer += response
-            text = ''.join(chr(byte) for byte in response)
+            # text = ''.join(chr(byte) for byte in response)
             current_timestamp1 = time.time()
             dt1 = datetime.datetime.fromtimestamp(current_timestamp1)
             while True:

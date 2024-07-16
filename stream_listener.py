@@ -10,13 +10,15 @@ import queue
 
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 3380
+BUFFER_SIZE = 1024
 
 
 class StreamListener:
-    def __init__(self, host, port, q: queue.Queue) -> None:
+    def __init__(self, host: str, port: str, q: queue.Queue) -> None:
         self.host = host
         self.port = port
         self.queue = q
+        self.buf_size = BUFFER_SIZE
 
         # connect to the stream
         self.socket_client: socket.socket = socket.socket(
@@ -30,16 +32,14 @@ class StreamListener:
         self.socket_client.close()
 
     async def consume_stream(self) -> None:
+        # TODO Implement
         pass
 
-    async def write_stream_to_file(self) -> None:
+    async def __write_stream_to_file(self) -> None:
         """For debug"""
-        # client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        # client_socket.connect((SERVER_HOST, SERVER_PORT))
         buffer = b''
         while True:
-            response = self.socket_client.recv(1024)
+            response = self.socket_client.recv(self.buf_size)
             # print("Received:", response.decode())
             if not response:
                 break
@@ -91,4 +91,4 @@ class StreamListener:
 if __name__ == "__main__":
     q = queue.Queue()
     sl = StreamListener(SERVER_HOST, SERVER_PORT, q)
-    asyncio.run(sl.write_stream_to_file())
+    asyncio.run(sl.__write_stream_to_file())

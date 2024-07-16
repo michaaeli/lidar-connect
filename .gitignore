@@ -2,3 +2,4 @@ __pycache__/
 conversion.cpython-311.pyc
 app.log
 .pytest_cache
+.vscode

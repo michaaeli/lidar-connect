@@ -1,4 +1,3 @@
-import json
 import requests
 
 
@@ -15,7 +14,7 @@ class Server():
             if response.status_code == 201:
                 print("Server is up.")
                 return True
-        except:
+        except Exception:
             self.logger.error("0 or less entries")
             raise Exception("Make sure everything is running")
 

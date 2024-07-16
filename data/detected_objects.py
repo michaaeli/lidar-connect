@@ -11,7 +11,9 @@ OBJECT_TYPE_NAME_MAP = {
 
 
 class DetectedObject:
-    def __init__(self, id: int, x: float, y: float, z: float, time: datetime, object_type: int, width: float = 0, length: float = 0, height: float = 0, speed: float = 0) -> None:
+    def __init__(self, id: int, x: float, y: float, z: float,
+                 time: datetime, object_type: int, width: float = 0, length: float = 0,
+                 height: float = 0, speed: float = 0) -> None:
         self.id = id
         self.x = x
         self.y = y

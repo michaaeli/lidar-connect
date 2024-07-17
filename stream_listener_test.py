@@ -1,7 +1,11 @@
+import time
 import unittest
 import struct
 import socket
 import json
+import queue
+from stream_listener import StreamListener
+import threading
 
 TEST_DATA = {
     "cmd": "2001",
@@ -28,56 +32,107 @@ TEST_DATA = {
 
 
 class DataStreamServer:
-    def __init__(self) -> None:
-        self.host = "localhost"
-        self.port = 3380
+    def __init__(self, host: str, port: int, package_len: int = 1024) -> None:
+        self.host = host
+        self.port = port
         self.max_conns = 5
         self.sock: socket.socket = socket.socket(
             socket.AF_INET, socket.SOCK_STREAM)
-        self.packer: struct.Struct = struct.Struct("!H")
+        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.package_len = package_len
+        self.total_sent_bytes = 0
+
+        self.conn = None
+
+    def open_send_and_close(self, data) -> None:
+        self.open_stream()
+        self.send_data(data)
+        self.close()
 
     def open_stream(self) -> None:
         self.sock.bind((self.host, self.port))
         self.sock.listen(self.max_conns)
+        conn, addr = self.sock.accept()
+        print("addr", addr)
+        self.conn = conn
 
     def send_data(self, data) -> None:
-        msg = self._data_to_json_bytes(data)
-        totalsent = 0
-        while totalsent < len(msg):
-            sent = self.sock.send(msg[totalsent:])
-            if sent == 0:
-                raise RuntimeError("socket connection broken")
-            totalsent += sent
+        msg = self._data_to_packed_bytes(data)
+        for chunk in msg:
+            totalsent = 0
+            while totalsent < len(chunk):
+                sent = self.conn.send(chunk[totalsent:])
+                if sent == 0:
+                    raise RuntimeError("socket connection broken")
+                totalsent += sent
+                self.total_sent_bytes += sent
 
-    def _data_to_json_bytes(self, data) -> bytes:
+    def _data_to_packed_bytes(self, data) -> list[bytes]:
+        """Transforms data into list of byte packages"""
+        # To JSON
         encoded = json.dumps(data)
+        # To Bytes
         encoded_bytes = bytes(encoded, "UTF-8")
-
+        # Cast to int every byte
         casted_bytes = [int(b) for b in encoded_bytes]
+        # Prepare packages
+        result = []
+        i, j = 0, min(self.package_len, len(casted_bytes))
+        while i < len(casted_bytes):
+            chunk = casted_bytes[i:j]
+            fstring = '!' + 'H'*len(chunk)
+            packed = struct.pack(fstring, *chunk)
+            result.append(packed)
+            i = j
+            j = min(j+self.package_len, len(casted_bytes))
 
-        bytes_packed = self.packer.pack(*casted_bytes)
-
-        return bytes_packed
+        return result
 
     def close(self) -> None:
-        self.sock.shutdown(1)
+        self.conn.shutdown(1)
         self.sock.close()
+
+
+PACKAGE_LEN = 1024
+PORT = 3399
 
 
 class TestStreamListener(unittest.TestCase):
     def setUp(self) -> None:
-        self.socket_stream_server = DataStreamServer()
+        self.host = "localhost"
+        self.port = PORT
+        self.q = queue.Queue()
+        self.socket_stream_server = DataStreamServer(
+            self.host, self.port, package_len=PACKAGE_LEN)
 
-    def tearDown(self) -> None:
-        self.socket_stream_server.close()
-        return super().tearDown()
+    def test_encode(self):
+        # Arrange
+        tc1 = {"msg": "Test message", "expected_len": 1}
+        tc2 = {"msg": "T"*(PACKAGE_LEN+1), "expected_len": 2}
+        cases = [tc1, tc2]
 
-    def test_successful_decode(self):
-        # TODO
-        b = self.socket_stream_server._data_to_json_bytes(3)
-        self.assertTrue(True)
+        for tc in cases:
+            # Act
+            bbb = self.socket_stream_server._data_to_packed_bytes(tc["msg"])
 
+            # Assert
+            self.assertTrue(len(bbb) == tc["expected_len"])
 
-if __name__ == "__main__":
-    b = struct.pack("!HHHHHHHH", *b'stringgg')
-    print(b)
+    def test_send_data(self):
+        # Arrange
+        msg = "Test message"
+        expected_number_of_sent_bytes = len(
+            self.socket_stream_server._data_to_packed_bytes(msg)[0])
+        self.server_thread = threading.Thread(
+            target=self.socket_stream_server.open_send_and_close, args=[msg])
+
+        # Act
+        self.server_thread.start()
+        time.sleep(1)
+        self.listener = StreamListener(self.host, self.port, self.q)
+        self.server_thread.join()
+        self.listener.close()
+
+        # Assert
+        self.assertEquals(
+            self.socket_stream_server.total_sent_bytes, expected_number_of_sent_bytes)

@@ -14,10 +14,10 @@ BUFFER_SIZE = 1024
 
 
 class StreamListener:
-    def __init__(self, host: str, port: str, q: queue.Queue) -> None:
+    def __init__(self, host: str, port: str, result_q: queue.Queue) -> None:
         self.host = host
         self.port = port
-        self.queue = q
+        self.result_q = result_q
         self.buf_size = BUFFER_SIZE
 
         # connect to the stream
@@ -31,6 +31,30 @@ class StreamListener:
         # Close connection
         self.socket_client.close()
 
+    def process_current_buffer(self, buffer) -> None:
+        result = ''
+        while True:
+            if (len(buffer) < 8):
+                break
+            header = struct.unpack('!H', buffer[0:2])[0]
+            if (header != 0xFFAA):
+                # TODO think of invalid headers & tails
+                print("Invalid packet header")
+                break
+
+            message_length = struct.unpack('!I', buffer[2:6])[0]
+            if (len(buffer) < message_length):
+                break  # wait for more data
+
+            tail = struct.unpack(
+                '!H', buffer[message_length-2:message_length])[0]
+            if tail != 0xEEEE:
+                print("Invalid tail")
+                break
+            message = buffer[6:message_length-2]
+            parsed = json.loads(message)
+        return result
+
     async def consume_stream(self) -> None:
         # TODO Implement
         pass
@@ -39,15 +63,22 @@ class StreamListener:
         """For debug"""
         buffer = b''
         while True:
+            # Receive data from socket
             response = self.socket_client.recv(self.buf_size)
-            # print("Received:", response.decode())
+
+            # Handle exit conditions
             if not response:
                 break
+
+            # Append received data to the buffer
             buffer += response
-            # text = ''.join(chr(byte) for byte in response)
+
             current_timestamp1 = time.time()
             dt1 = datetime.datetime.fromtimestamp(current_timestamp1)
+
+            # Decode as many full messages as availabe in buffer
             while True:
+                # Process currently available data
                 if (len(buffer) < 8):
                     break
                 header = struct.unpack('!H', buffer[0:2])[0]
@@ -79,6 +110,7 @@ class StreamListener:
                         file.write("\n")
                         file.write("--------------------------------")
 
+                # Update buffer
                 buffer = buffer[message_length:]
 
             sys.stdout.write("\r" + str(dt1))

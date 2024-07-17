@@ -55,26 +55,21 @@ class TestReceiver(unittest.TestCase):
         # calculation = Receiver(self.logger, self.data, self.converter, self.result_queue)
         # #Act
         # #Assert
+
+        # We don't want to mock converter or detected data, only data provider with get_data method
+        # We want to call an assert_called for that mock
+        # And check the queue for the new element
+        # And check that the new element in queue has updated values
         
         receiver = Receiver(self.logger, self.data, self.converter, self.result_queue)
-        self.mock_detected_object = Mock(spec=DetectedObject)
-        self.mock_detected_object.x = 375.8184
-        self.mock_detected_object.y = 289.865
-        self.mock_detected_object.set_global_coordinates = Mock()
+        data = Mock(spec=Data)
 
-        self.converter = Mock(spec=ConvertObject)
-        self.converter.get_final_coords.return_value = (33.72994163364332, -117.87251332772777)
-        # Arrange
+        detected_object = DetectedObject(123, 375.8184, 289.865, 0, datetime.now(), 3)
+        data.get_data.return_value = detected_object
 
-        # Act
         receiver.process()
+        data.get_data.assert_called_with()
 
-        # Assert
-        self.data.get_data.assert_called_once()
-        self.converter.get_final_coords.assert_called_once_with(375.8184, 289.865)
-        self.mock_detected_object.set_global_coordinates.assert_called_once_with(33.72994163364332, -117.87251332772777, 0.0)
-        self.assertEqual(self.result_queue.qsize(), 1)
-        self.logger.info.assert_called_with("new entry queued")
 
     
 

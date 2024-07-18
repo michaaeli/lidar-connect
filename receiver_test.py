@@ -49,33 +49,24 @@ class TestReceiver(unittest.TestCase):
         self.assertTrue(np.all(is_close))
 
     def test_process(self):
-
-        # We don't want to mock converter or detected data, only data provider with get_data method
-        # We want to call an assert_called for that mock
-        # And check the queue for the new element
-        # And check that the new element in queue has updated values
-        
         #Arrange
         receiver = Receiver(self.logger, self.data, self.converter, self.result_queue)
         data = Mock(spec=Data)
 
         detected_object = DetectedObject(123, 375.8184, 289.865, 0, datetime.now(), 3)
-        data.get_data.return_value = detected_object
+        self.data.get_data.return_value = detected_object
 
         #Act
         receiver.process()
         result = self.result_queue.get()
 
         #Assert
-        data.get_data.assert_called_with()
+        self.data.get_data.assert_called_with()
         is_close = np.isclose(
-            [result.latitude, result.longitude], 
+            result, 
             [33.72994163364332, -117.87251332772777]
         )
         self.assertTrue(np.all(is_close))
-
-
-    
 
 if __name__ == '__main__':
     unittest.main()

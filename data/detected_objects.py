@@ -1,5 +1,6 @@
 from typing import List
-import datetime
+from datetime import datetime
+
 OBJECT_TYPE_NAME_MAP = {
     0: "Unknown",
     1: "pedestrian",
@@ -18,7 +19,7 @@ class DetectedObject:
         self.x = x
         self.y = y
         self.z = z
-        self.time = time,
+        self.time = time
         self.object_type = object_type
         self.object_name = OBJECT_TYPE_NAME_MAP[object_type]
         self.width = width
@@ -42,3 +43,30 @@ class DetectedObject:
 
     def __str__(self) -> str:
         return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.width}\nLength: {self.length}\nHeight: {self.height}\nTime: {self.time}"
+
+
+def convert_system_timestamp_to_datetime(ts: int) -> datetime:
+    return datetime.fromtimestamp(ts/1000)
+
+
+def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]:
+    """Repacks message from hardware into list of detected objects"""
+    objects = []
+    if "sys_timestamp" not in parsed_json_object or "object_list" not in parsed_json_object:
+        return []
+    time = convert_system_timestamp_to_datetime(
+        int(parsed_json_object["sys_timestamp"]))
+    for obj in parsed_json_object["object_list"]:
+        id = int(obj["object_id"])
+        x = float(obj["x"])
+        y = float(obj["y"])
+        z = float(obj["z"])
+        type = int(obj["object_type"])
+        width = float(obj["width"])
+        length = float(obj["length"])
+        height = float(obj["height"])
+        speed = float(obj["speed"])
+
+        objects.append(DetectedObject(id, x, y, z, time,
+                       type, width, length, height, speed))
+    return objects

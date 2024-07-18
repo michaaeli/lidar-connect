@@ -80,7 +80,7 @@ class DataStreamServer:
         i, j = 0, min(self.package_len, len(casted_bytes))
         while i < len(casted_bytes):
             chunk = casted_bytes[i:j]
-            fstring = '!' + 'H'*len(chunk)
+            fstring = '!' + 'I'*len(chunk)
             packed = struct.pack(fstring, *chunk)
             result.append(packed)
             i = j
@@ -134,5 +134,34 @@ class TestStreamListener(unittest.TestCase):
         self.listener.close()
 
         # Assert
-        self.assertEquals(
+        self.assertEqual(
             self.socket_stream_server.total_sent_bytes, expected_number_of_sent_bytes)
+
+    def test_receive_data(self):
+        # Arrange
+        bbb = '{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.124541","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538539,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
+        expected_number_of_sent_bytes = len(
+            self.socket_stream_server._data_to_packed_bytes(bbb)[0])
+        self.server_thread = threading.Thread(
+            target=self.socket_stream_server.open_send_and_close, args=[bbb])
+
+        # Act
+
+        # Send
+        self.server_thread.start()
+        time.sleep(1)
+        self.listener = StreamListener(self.host, self.port, self.q)
+        self.client_thread = threading.Thread(
+            target=self.listener.consume_stream)
+        self.client_thread.start()
+        self.server_thread.join()
+        self.client_thread.join()
+
+        # Receive & decode
+
+        self.listener.close()
+
+        # Assert
+        self.assertEqual(
+            self.socket_stream_server.total_sent_bytes, expected_number_of_sent_bytes)
+        self.assertEqual(self.q.qsize(), 1)

@@ -6,6 +6,7 @@ import time
 import datetime
 import sys
 import queue
+from data.detected_objects import detected_objects_from_json
 
 
 SERVER_HOST = '127.0.0.1'
@@ -31,14 +32,38 @@ class StreamListener:
         # Close connection
         self.socket_client.close()
 
-    def process_current_buffer(self, buffer) -> None:
-        result = ''
+    def consume_stream(self) -> None:
+        buffer = b''
         while True:
+            # Receive data from socket
+            response = self.socket_client.recv(self.buf_size)
+
+            # Handle exit conditions
+            if not response:  # TODO
+                break
+
+            # Append received data to the buffer
+            buffer += response
+
+            # Decode as many full messages as availabe in buffer
+            messages_list = self.__decode_buffer(buffer)
+
+            # Repack all detected objects from all messages
+            for msg in messages_list:
+                objects = detected_objects_from_json(msg)
+                # Push detected objects to result queue
+                for obj in objects:
+                    self.result_q.put(obj)
+
+    def __decode_buffer(self, buffer) -> list[object]:
+        messages = []
+        # Decode as many full messages as availabe in buffer
+        while True:
+            # Process currently available data
             if (len(buffer) < 8):
                 break
             header = struct.unpack('!H', buffer[0:2])[0]
             if (header != 0xFFAA):
-                # TODO think of invalid headers & tails
                 print("Invalid packet header")
                 break
 
@@ -53,11 +78,13 @@ class StreamListener:
                 break
             message = buffer[6:message_length-2]
             parsed = json.loads(message)
-        return result
 
-    async def consume_stream(self) -> None:
-        # TODO Implement
-        pass
+            # Write detected message
+            messages.append(parsed)
+
+            # Update buffer
+            buffer = buffer[message_length:]
+        return messages
 
     async def __write_stream_to_file(self) -> None:
         """For debug"""

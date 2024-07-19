@@ -28,7 +28,7 @@ class StreamListener:
 
     def close(self) -> None:
         """Executes graceful stop of connection consumption"""
-        # TODO
+        # TODO test
         # Close connection
         self.socket_client.close()
 
@@ -39,7 +39,7 @@ class StreamListener:
             response = self.socket_client.recv(self.buf_size)
 
             # Handle exit conditions
-            if not response:  # TODO
+            if not response:  # TODO think
                 break
 
             # Append received data to the buffer
@@ -78,6 +78,7 @@ class StreamListener:
                 break
             message = buffer[6:message_length-2]
             parsed = json.loads(message)
+            parsed = json.loads(parsed)
 
             # Write detected message
             messages.append(parsed)

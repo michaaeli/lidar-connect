@@ -82,6 +82,10 @@ class DataStreamServer:
             chunk = casted_bytes[i:j]
             fstring = '!' + 'I'*len(chunk)
             packed = struct.pack(fstring, *chunk)
+            msg_len = len(packed)
+            # +4 byte length for header and tail, +4 for message length
+            packed = struct.pack(
+                '!H', 0xFFAA) + struct.pack('!I', msg_len + 8) + packed + struct.pack('!H', 0xEEEE)
             result.append(packed)
             i = j
             j = min(j+self.package_len, len(casted_bytes))
@@ -140,8 +144,8 @@ class TestStreamListener(unittest.TestCase):
     def test_receive_data(self):
         # Arrange
         bbb = '{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.124541","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538539,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'
-        expected_number_of_sent_bytes = len(
-            self.socket_stream_server._data_to_packed_bytes(bbb)[0])
+        msg = self.socket_stream_server._data_to_packed_bytes(bbb)[0]
+        expected_number_of_sent_bytes = len(msg)
         self.server_thread = threading.Thread(
             target=self.socket_stream_server.open_send_and_close, args=[bbb])
 

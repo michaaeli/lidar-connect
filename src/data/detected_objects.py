@@ -7,14 +7,24 @@ OBJECT_TYPE_NAME_MAP = {
     2: "cyclist",
     3: "car",
     4: "truck",
-    5: "bus"
+    5: "bus",
 }
 
 
 class DetectedObject:
-    def __init__(self, id: int, x: float, y: float, z: float,
-                 time: datetime, object_type: int, width: float = 0, length: float = 0,
-                 height: float = 0, speed: float = 0) -> None:
+    def __init__(
+        self,
+        id: int,
+        x: float,
+        y: float,
+        z: float,
+        time: datetime,
+        object_type: int,
+        width: float = 0,
+        length: float = 0,
+        height: float = 0,
+        speed: float = 0,
+    ) -> None:
         self.id = id
         self.x = x
         self.y = y
@@ -31,7 +41,9 @@ class DetectedObject:
         """Returns local x,y,z coordinates"""
         return [self.x, self.y, self.z]
 
-    def set_global_coordinates(self, latitude: float, longitude: float, height: float) -> None:
+    def set_global_coordinates(
+        self, latitude: float, longitude: float, height: float
+    ) -> None:
         """Assign global Latitude/Longitude/Height coordinates"""
         self.lat = latitude
         self.lon = longitude
@@ -42,20 +54,25 @@ class DetectedObject:
         return ""
 
     def __str__(self) -> str:
-        return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.width}\nLength: {self.length}\nHeight: {self.height}\nTime: {self.time}"
+        return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.width}\n \
+        Length: {self.length}\nHeight: {self.height}\nTime: {self.time}"
 
 
 def convert_system_timestamp_to_datetime(ts: int) -> datetime:
-    return datetime.fromtimestamp(ts/1000)
+    return datetime.fromtimestamp(ts / 1000)
 
 
 def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]:
     """Repacks message from hardware into list of detected objects"""
     objects = []
-    if "sys_timestamp" not in parsed_json_object or "object_list" not in parsed_json_object:
+    if (
+        "sys_timestamp" not in parsed_json_object
+        or "object_list" not in parsed_json_object
+    ):
         return []
     time = convert_system_timestamp_to_datetime(
-        int(parsed_json_object["sys_timestamp"]))
+        int(parsed_json_object["sys_timestamp"])
+    )
     for obj in parsed_json_object["object_list"]:
         id = int(obj["object_id"])
         x = float(obj["x"])
@@ -67,6 +84,7 @@ def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]
         height = float(obj["height"])
         speed = float(obj["speed"])
 
-        objects.append(DetectedObject(id, x, y, z, time,
-                       type, width, length, height, speed))
+        objects.append(
+            DetectedObject(id, x, y, z, time, type, width, length, height, speed)
+        )
     return objects

@@ -1,7 +1,7 @@
 import requests
 
 
-class Server():
+class Server:
     def __init__(self, logger, url):
         self.logger = logger
         self.logger.info("Server Initialized")
@@ -23,21 +23,17 @@ class Server():
         print(res.text)
 
 
-url = 'http://localhost:3000/cars'
+url = "http://localhost:3000/cars"
 
-data = {
-    "make": "Mercedes",
-    "color": "Silver",
-    "price": 75000
-}
+data = {"make": "Mercedes", "color": "Silver", "price": 75000}
 if __name__ == "__main__":
     car = Server(url)
     car.send_objects(data)
 
 # class Server(url):
-    # if(url)
+# if(url)
 
-    # on init check url
-    # keep server url
-    # send_objects([...])
-    # post_to_server(...)
+# on init check url
+# keep server url
+# send_objects([...])
+# post_to_server(...)

@@ -10,7 +10,9 @@ MAXLON = 180
 # Translated Geolib-JS function
 
 
-def compute_destination_point(lat, lon, distance, bearing, radius=RADIUS_EARTH) -> list[float]:
+def compute_destination_point(
+    lat, lon, distance, bearing, radius=RADIUS_EARTH
+) -> list[float]:
     """Returns [Latitude, Longitude]"""
     delta = distance / radius
     theta = np.deg2rad(bearing)
@@ -19,13 +21,13 @@ def compute_destination_point(lat, lon, distance, bearing, radius=RADIUS_EARTH) 
     lambda1 = np.deg2rad(lon)
 
     phi2 = math.asin(
-        math.sin(phi1) * math.cos(delta) +
-        math.cos(phi1) * math.sin(delta) * math.cos(theta)
+        math.sin(phi1) * math.cos(delta)
+        + math.cos(phi1) * math.sin(delta) * math.cos(theta)
     )
 
     lambda2 = lambda1 + math.atan2(
         math.sin(theta) * math.sin(delta) * math.cos(phi1),
-        math.cos(delta) - math.sin(phi1) * math.sin(phi2)
+        math.cos(delta) - math.sin(phi1) * math.sin(phi2),
     )
 
     longitude = np.rad2deg(lambda2)

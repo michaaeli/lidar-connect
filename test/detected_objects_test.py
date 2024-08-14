@@ -23,6 +23,9 @@ class TestRepack(unittest.TestCase):
             actual_value = getattr(obj, field)
             self.assertEqual(actual_value, expected_value)
 
+    def test_failure(self):
+        self.assertTrue(False)
+
 
 if __name__ == "__main__":
     unittest.main()

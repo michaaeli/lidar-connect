@@ -1,8 +1,0 @@
-[run]
-omit =
-    *_test.py 
-    __pyache__/*
-    .vscode/*
-
-source =
-    .

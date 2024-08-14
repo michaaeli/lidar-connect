@@ -1,6 +1,6 @@
-from conversion import ConvertObject
+from src.conversion import ConvertObject
 from data.detected_objects import DetectedObject
-from read_config import Config
+from src.read_config import Config
 import datetime
 import logging
 import queue

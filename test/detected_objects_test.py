@@ -1,6 +1,6 @@
 import unittest
 import json
-from detected_objects import detected_objects_from_json, convert_system_timestamp_to_datetime
+from src.data.detected_objects import detected_objects_from_json, convert_system_timestamp_to_datetime
 
 
 class TestRepack(unittest.TestCase):

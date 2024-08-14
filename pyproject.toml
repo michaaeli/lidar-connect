@@ -1,0 +1,14 @@
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+
+[tool.coverage.run]
+omit = [
+    "*_test.py",
+    "__pyache__/*",
+    ".vscode/*",
+    ]
+source = [
+    "."
+    ]

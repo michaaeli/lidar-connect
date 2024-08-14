@@ -1,7 +1,7 @@
-from receiver import Receiver, Data
-from conversion import ConvertObject
-from main import Server
-from read_config import Config
+from src.receiver import Receiver, Data
+from src.conversion import ConvertObject
+from src.main import Server
+from src.read_config import Config
 import logging
 import queue
 

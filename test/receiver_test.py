@@ -1,7 +1,7 @@
 import unittest
-from receiver import Receiver, Data
+from src.receiver import Receiver, Data
 from data.detected_objects import DetectedObject
-from conversion import ConvertObject
+from src.conversion import ConvertObject
 from datetime import datetime
 from unittest.mock import Mock
 from unittest.mock import MagicMock

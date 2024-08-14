@@ -4,7 +4,7 @@ import struct
 import socket
 import json
 import queue
-from stream_listener import StreamListener
+from src.stream_listener import StreamListener
 import threading
 
 TEST_DATA = {

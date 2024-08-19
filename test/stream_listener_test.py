@@ -7,33 +7,15 @@ import queue
 from src.stream_listener import StreamListener
 import threading
 
-TEST_DATA = {
-    "cmd": "2001",
-    "object_list": [
-        {
-            "height": "1.414932",
-            "length": "1.607635",
-            "length_type": "00",
-            "object_id": "1138815",
-            "object_timestamp": "467022",
-            "object_type": "2",
-            "speed": "0.144000",
-            "width": "0.613869",
-            "x": "-0.849668",
-            "y": "-2.122374",
-            "z": "8.128756",
-            "zone_id": "null",
-        }
-    ],
-    "server_ip": "0.0.0.0",
-    "sys_timestamp": 1719250538359,
-    "zone_list": [
-        {"zone_id": "11388400", "zone_name": "11388SOUTH00", "zone_type": "1"}
-    ],
-}
+TEST_DATA = '{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.124541","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538539,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'  # noqa
 
 
 class DataStreamServer:
+    """
+    Socket stream server. Sends data to socket client.
+
+    """
+
     def __init__(self, host: str, port: int, package_len: int = 1024) -> None:
         self.host = host
         self.port = port
@@ -98,7 +80,7 @@ class DataStreamServer:
         return result
 
     def close(self) -> None:
-        self.conn.shutdown(1)
+        self.conn.shutdown(socket.SHUT_RDWR)
         self.sock.close()
 
 

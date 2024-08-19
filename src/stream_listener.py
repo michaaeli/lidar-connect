@@ -6,7 +6,7 @@ import time
 import datetime
 import sys
 import queue
-from data.detected_objects import detected_objects_from_json
+from src.data.detected_objects import detected_objects_from_json
 
 
 SERVER_HOST = "127.0.0.1"
@@ -30,9 +30,17 @@ class StreamListener:
     def close(self) -> None:
         """Executes graceful stop of connection consumption"""
         # TODO test
+        self.socket_client.shutdown(1)
         # Close connection
         self.socket_client.close()
 
+    def wrapped_consume(self) -> None:
+        try:
+            self.consume_stream()
+        except Exception as e:
+            print(e)
+            self.close()
+            
     def consume_stream(self) -> None:
         buffer = b""
         while True:

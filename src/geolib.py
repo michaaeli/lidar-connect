@@ -32,7 +32,7 @@ def compute_destination_point(
 
     longitude = np.rad2deg(lambda2)
     if longitude < MINLON or longitude > MAXLON:
-        # normalise to >=-180 and <=180° if value is >MAXLON or <MINLON
+        # normalize to >=-180 and <=180° if value is >MAXLON or <MINLON
         lambda2 = ((lambda2 + 3 * math.pi) % (2 * math.pi)) - math.pi
         longitude = np.rad2deg(lambda2)
 

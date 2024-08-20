@@ -40,9 +40,9 @@ class StreamListener:
         except Exception as e:
             print(e)
             self.close()
-            
+
     def consume_stream(self) -> None:
-        buffer = b""
+        self.buffer = b""
         while True:
             # Receive data from socket
             response = self.socket_client.recv(self.buf_size)
@@ -52,10 +52,10 @@ class StreamListener:
                 break
 
             # Append received data to the buffer
-            buffer += response
+            self.buffer += response
 
             # Decode as many full messages as availabe in buffer
-            messages_list = self.__decode_buffer(buffer)
+            messages_list = self.__decode_buffer()
 
             # Repack all detected objects from all messages
             for msg in messages_list:
@@ -63,28 +63,30 @@ class StreamListener:
                 # Push detected objects to result queue
                 for obj in objects:
                     self.result_q.put(obj)
+                    # TODO DEBUG
+                    print("qsize: ", self.result_q.qsize())
 
-    def __decode_buffer(self, buffer) -> list[object]:
+    def __decode_buffer(self) -> list[object]:
         messages = []
         # Decode as many full messages as availabe in buffer
         while True:
             # Process currently available data
-            if len(buffer) < 8:
+            if len(self.buffer) < 8:
                 break
-            header = struct.unpack("!H", buffer[0:2])[0]
+            header = struct.unpack("!H", self.buffer[0:2])[0]
             if header != 0xFFAA:
                 print("Invalid packet header")
                 break
 
-            message_length = struct.unpack("!I", buffer[2:6])[0]
-            if len(buffer) < message_length:
+            message_length = struct.unpack("!I", self.buffer[2:6])[0]
+            if len(self.buffer) < message_length:
                 break  # wait for more data
 
-            tail = struct.unpack("!H", buffer[message_length-2:message_length])[0]  # fmt: skip
+            tail = struct.unpack("!H", self.buffer[message_length-2:message_length])[0]  # fmt: skip
             if tail != 0xEEEE:
                 print("Invalid tail")
                 break
-            message = buffer[6:message_length-2]  # fmt: skip
+            message = self.buffer[6:message_length-2]  # fmt: skip
             parsed = json.loads(message)
             parsed = json.loads(parsed)
 
@@ -92,7 +94,7 @@ class StreamListener:
             messages.append(parsed)
 
             # Update buffer
-            buffer = buffer[message_length:]
+            self.buffer = self.buffer[message_length:]
         return messages
 
     async def __write_stream_to_file(self) -> None:

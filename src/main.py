@@ -26,14 +26,16 @@ class Server:
 url = "http://localhost:3000/cars"
 
 data = {"make": "Mercedes", "color": "Silver", "price": 75000}
+
+
 if __name__ == "__main__":
-    car = Server(url)
-    car.send_objects(data)
+    # car = Server(url)
+    # car.send_objects(data)
 
-# class Server(url):
-# if(url)
+    # Init config
+    # TODO
 
-# on init check url
-# keep server url
-# send_objects([...])
-# post_to_server(...)
+    # Init logger
+    # TODO
+
+    pass

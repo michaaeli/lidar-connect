@@ -11,7 +11,7 @@ class PerpetualObjectsProducer(DataStreamServer):
     """
 
     def __init__(
-        self, host: str, port: int, package_len: int = 1024, time_interval: int = 2
+        self, host: str, port: int, package_len: int = 1024, time_interval: int = 1
     ) -> None:
         """`time_interval` in seconds"""
         super().__init__(host, port, package_len)
@@ -38,20 +38,6 @@ class PerpetualObjectsProducer(DataStreamServer):
         # Close connection when interrupted
         self.close()
 
-    def proof_of_concept(self):
-        self.open_stream()
-
-        while True:
-            try:
-                print("serving")
-                if self.interrupt:
-                    break
-                time.sleep(1)
-            except KeyboardInterrupt:
-                print("keyboard interrupt")
-                break
-        print("server closed")
-
 
 if __name__ == "__main__":
     # Set up server
@@ -71,7 +57,6 @@ if __name__ == "__main__":
     # Execute until KeyboardInterrupt:
     while True:
         try:
-            print("q size=", q.qsize())
             time.sleep(1)
         except KeyboardInterrupt:
             server.interrupt = True

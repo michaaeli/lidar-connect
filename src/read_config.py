@@ -6,9 +6,10 @@ class Config:
         with open("config.yml", "r") as f:
             self.data = yaml.safe_load(f)
 
-    def get_connection(self):
+    def get_connection_info(self):
         url = self.data["rest"]["url"]
-        return url
+        port = self.data["rest"]["port"]
+        return url, port
 
     def get_lidar_pos(self):
         lat1 = self.data["lidar_coords"]["lat1"]

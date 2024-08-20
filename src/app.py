@@ -1,5 +1,5 @@
 from src.receiver import Receiver, Data
-from src.conversion import ConvertObject
+from coordconversion import Converter
 from src.main import Server
 from src.read_config import Config
 import logging
@@ -25,15 +25,15 @@ class Application:
         self.lon1 = lidar_coord[1]
         self.lat2 = lidar_coord[2]
         self.lon2 = lidar_coord[3]
-        self.coordinate_converter = ConvertObject(
-            self.logger, self.lat1, self.lon1, self.lat2, self.lon2
+        self.coordinate_converter = Converter(
+            self.lat1, self.lon1, self.lat2, self.lon2
         )
         # receiver
         self.data_source = Data()
         self.converter = self.coordinate_converter
         self.result_queue = queue.Queue()
         self.data_receiever = Receiver(
-            self.logger, self.data_source, self.converter, self.result_queue
+            self.data_source, self.converter, self.result_queue
         )
         # main/server
         self.url = Config()
@@ -45,6 +45,7 @@ class Application:
         # TODO
         # Join queue
         self.result_queue.join()
+        self.data_receiever.close()
 
 
 if __name__ == "__main__":

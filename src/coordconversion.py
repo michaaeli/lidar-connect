@@ -4,10 +4,12 @@ import pyproj
 from src.geolib import compute_destination_point
 
 
-class ConvertObject:
-    def __init__(self, logger, lat, lon, lat2, lon2):
-        self.logger = logger
-        self.logger.info("Converter Initialized")
+class Converter:
+    """
+    Converts local XYZ coordinates to global Lat/Lon/Height coordinates.
+    """
+
+    def __init__(self, lat, lon, lat2, lon2):
         self.lat = lat
         self.lon = lon
         self.lat2 = lat2

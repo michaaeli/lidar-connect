@@ -1,6 +1,6 @@
-rest:
-  url: "http://localhost:3000/cars"
-  port: 3000 
+data_stream:
+  host: "localhost"
+  port: 3399
 
 lidar_coords:
   lat1: 33.730979
@@ -8,4 +8,5 @@ lidar_coords:
   lat2: 33.736142
   lon2: -117.943838
 
-#logger level
+producer:
+  target_url: "http://localhost:3000/"

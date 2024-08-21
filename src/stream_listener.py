@@ -1,21 +1,22 @@
-import asyncio
+from src.data.detected_objects import detected_objects_from_json
+import datetime
+import logging
 import socket
 import struct
+import queue
 import json
 import time
-import datetime
 import sys
-import queue
-from src.data.detected_objects import detected_objects_from_json
 
 
-SERVER_HOST = "127.0.0.1"
-SERVER_PORT = 3380
 BUFFER_SIZE = 1024
 
 
+logger = logging.getLogger(__name__)
+
+
 class StreamListener:
-    def __init__(self, host: str, port: str, result_q: queue.Queue) -> None:
+    def __init__(self, host: str, port: int, result_q: queue.Queue) -> None:
         self.host = host
         self.port = port
         self.result_q = result_q
@@ -42,8 +43,9 @@ class StreamListener:
             self.close()
 
     def consume_stream(self) -> None:
+        logger.info("StreamListener started consuming")
         self.buffer = b""
-        while True:
+        while True:  # TODO maybe add stop signal
             # Receive data from socket
             response = self.socket_client.recv(self.buf_size)
 
@@ -63,8 +65,8 @@ class StreamListener:
                 # Push detected objects to result queue
                 for obj in objects:
                     self.result_q.put(obj)
-                    # TODO DEBUG
-                    print("qsize: ", self.result_q.qsize())
+
+        logger.info("StreamListener stopped consuming")
 
     def __decode_buffer(self) -> list[object]:
         messages = []
@@ -159,7 +161,7 @@ class StreamListener:
         self.socket_client.close()
 
 
-if __name__ == "__main__":
-    q = queue.Queue()
-    sl = StreamListener(SERVER_HOST, SERVER_PORT, q)
-    asyncio.run(sl.__write_stream_to_file())
+# if __name__ == "__main__":
+#     q = queue.Queue()
+#     sl = StreamListener("127.0.0.1", 3380, q)
+#     asyncio.run(sl.__write_stream_to_file())

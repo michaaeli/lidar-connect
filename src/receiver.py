@@ -26,13 +26,12 @@ class Receiver:
         self.is_running: bool = False
         self.total_processed_objects: int = 0
 
-        logger.info("Receiver initialized")
-
     def convert(self):
         data_to_convert: DetectedObject = self.processing_queue.get()
         if self.stop_signal:
             return None
         result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
+        # TODO check height
         data_to_convert.set_global_coordinates(result[0], result[1], 0.0)
         return result
 
@@ -42,7 +41,6 @@ class Receiver:
             return
         self.result_queue.put(converted)
         self.total_processed_objects += 1
-        logger.debug("new converted entry queued")
 
     def close(self):
         self.stop_signal = True

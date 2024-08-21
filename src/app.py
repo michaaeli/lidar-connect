@@ -1,51 +1,53 @@
-from src.receiver import Receiver, Data
-from coordconversion import Converter
-from src.main import Server
-from src.read_config import Config
+import time
+from stream_listener import StreamListener
+from receiver import Receiver
+from producer import Producer
+import threading
 import logging
-import queue
+
+logger = logging.getLogger(__name__)
 
 
 class Application:
-    def __init__(self):
-        # logger
-        logging.basicConfig(
-            level=logging.INFO,
-            filename="app.log",
-            format="%(asctime)s - %(levelname)s - %(message)s",
-            datefmt="%Y-%m-%d %H:%M:%S",
-        )
-        self.logger = logging.getLogger("test")
-        self.logger.debug("debug message")
-        self.logger.info("info message")
-        # conversion
-        config = Config()
-        lidar_coord = config.get_lidar_pos()
-        self.lat1 = lidar_coord[0]
-        self.lon1 = lidar_coord[1]
-        self.lat2 = lidar_coord[2]
-        self.lon2 = lidar_coord[3]
-        self.coordinate_converter = Converter(
-            self.lat1, self.lon1, self.lat2, self.lon2
-        )
-        # receiver
-        self.data_source = Data()
-        self.converter = self.coordinate_converter
-        self.result_queue = queue.Queue()
-        self.data_receiever = Receiver(
-            self.data_source, self.converter, self.result_queue
-        )
-        # main/server
-        self.url = Config()
-        self.backend_connection = Server(self.logger, self.url.get_connection())
+    """
+    Runs StreamListener, Receiver, Producer in separate threads
+    """
+
+    def __init__(
+        self, stream_listener: StreamListener, receiver: Receiver, producer: Producer
+    ):
+        self.listener = stream_listener
+        self.receiver = receiver
+        self.producer = producer
 
     def close(self) -> None:
-        """Executes graceful shutdown"""
-        # Stop stream listener
-        # TODO
-        # Join queue
-        self.result_queue.join()
-        self.data_receiever.close()
+        # TODO Join queue
+        self.listener.close()
+        self.receiver.close()
+        self.producer.close()
+
+    def run(self) -> None:
+        listener_thread = threading.Thread(target=self.listener.wrapped_consume)
+        receiver_thread = threading.Thread(target=self.receiver.start_processing)
+        producer_thread = threading.Thread(target=self.producer.start)
+
+        listener_thread.start()
+        receiver_thread.start()
+        producer_thread.start()
+
+        while True:
+            try:
+                time.sleep(1)
+            except KeyboardInterrupt:
+                logger.info("Received KeyboardInterrupt, stopping the app...")
+                self.close()
+                break
+
+        listener_thread.join()
+        receiver_thread.join()
+        producer_thread.join()
+
+        logger.info("App finished execution")
 
 
 if __name__ == "__main__":

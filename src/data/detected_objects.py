@@ -20,9 +20,9 @@ class DetectedObject:
         z: float,
         time: datetime,
         object_type: int,
-        width: float = 0,
-        length: float = 0,
-        height: float = 0,
+        object_width: float = 0,
+        object_length: float = 0,
+        object_height: float = 0,
         speed: float = 0,
     ) -> None:
         self.id = id
@@ -32,9 +32,9 @@ class DetectedObject:
         self.time = time
         self.object_type = object_type
         self.object_name = OBJECT_TYPE_NAME_MAP[object_type]
-        self.width = width
-        self.length = length
-        self.height = height
+        self.object_width = object_width
+        self.object_length = object_length
+        self.object_height = object_height
         self.speed = speed
 
     def get_position(self) -> List[float]:
@@ -54,8 +54,8 @@ class DetectedObject:
         return ""
 
     def __str__(self) -> str:
-        return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.width}\n \
-        Length: {self.length}\nHeight: {self.height}\nTime: {self.time}"
+        return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.object_width}\n \
+        Length: {self.object_length}\nHeight: {self.object_height}\nTime: {self.time}"
 
 
 def convert_system_timestamp_to_datetime(ts: int) -> datetime:

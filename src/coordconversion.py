@@ -1,7 +1,7 @@
-import math
+from src.geolib import compute_destination_point
 import numpy as np
 import pyproj
-from src.geolib import compute_destination_point
+import math
 
 
 class Converter:

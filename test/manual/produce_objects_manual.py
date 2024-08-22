@@ -1,7 +1,7 @@
-import queue
 from test.stream_listener_test import DataStreamServer, TEST_DATA, PACKAGE_LEN
 from src.stream_listener import StreamListener
 import threading
+import queue
 import time
 
 

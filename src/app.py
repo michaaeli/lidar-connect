@@ -1,9 +1,9 @@
-import time
 from stream_listener import StreamListener
 from receiver import Receiver
 from producer import Producer
 import threading
 import logging
+import time
 
 logger = logging.getLogger(__name__)
 

@@ -11,12 +11,12 @@ class TestRepack(unittest.TestCase):
         parsed_json = json.loads(bbb)
         time = convert_system_timestamp_to_datetime(1719250538539)
         expected_vals = {
-            "height": 1.414932,
-            "length": 1.607635,
+            "object_height": 1.414932,
+            "object_length": 1.607635,
             "id": 1138815,
             "object_type": 2,
             "speed": 0.144000,
-            "width": 0.613869,
+            "object_width": 0.613869,
             "x": -0.849668,
             "y": -2.124541,
             "z": 8.138049,

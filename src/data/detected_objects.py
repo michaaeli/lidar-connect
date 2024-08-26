@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from typing import List
 
 OBJECT_TYPE_NAME_MAP = {
@@ -37,6 +38,10 @@ class DetectedObject:
         self.object_height = object_height
         self.speed = speed
 
+        self.lat = 0
+        self.lon = 0
+        self.h = 0
+
     def get_position(self) -> List[float]:
         """Returns local x,y,z coordinates"""
         return [self.x, self.y, self.z]
@@ -51,7 +56,13 @@ class DetectedObject:
 
     def to_json(self) -> str:
         """Converts object to JSON"""  # TODO
-        return ""
+        res = "{"
+        res += (
+            f""" "id":{self.id},"object_type":{self.object_type},"object_name":{self.object_name},\
+        "lat":{self.lat},"lon":{self.lon},"h":{self.h}"""
+            + "}"
+        )
+        return res
 
     def __str__(self) -> str:
         return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.object_width}\n \
@@ -60,6 +71,18 @@ class DetectedObject:
 
 def convert_system_timestamp_to_datetime(ts: int) -> datetime:
     return datetime.fromtimestamp(ts / 1000)
+
+
+def detected_objects_to_json(objects: List[DetectedObject]) -> str:
+    """Packs list of DetectedObjects into json string"""
+    result = """{"objects": ["""
+    encoded = []
+    for obj in objects:
+        encoded.append(obj.to_json())
+    result += str.join(",", encoded)
+    result += "]}"
+
+    return result
 
 
 def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]:

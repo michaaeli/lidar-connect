@@ -85,6 +85,10 @@ def detected_objects_to_json(objects: List[DetectedObject]) -> str:
     return result
 
 
+def detected_objects_list_to_json_bytes(objects: List[DetectedObject]) -> bytes:
+    return bytes(detected_objects_from_json(objects), "utf-8")
+
+
 def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]:
     """Repacks message from hardware into list of detected objects"""
     objects = []

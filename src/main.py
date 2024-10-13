@@ -1,9 +1,9 @@
-from stream_listener import StreamListener
-from coordconversion import Converter
-from read_config import Config
-from producer import Producer
-from receiver import Receiver
-from app import Application
+from src.stream_listener import StreamListener
+from src.coordconversion import Converter
+from src.read_config import Config
+from src.producer import Producer
+from src.receiver import Receiver
+from src.app import Application
 import logging
 import queue
 import sys
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     cfg = Config()
 
     # Init logger
-    logging.basicConfig(filename="lidar-connect.log", level=logging.INFO)
+    logging.basicConfig(filename="lidar-connect.log", level=logging.DEBUG)
     logger.addHandler(logging.StreamHandler(sys.stdout))
 
     # Init Stream Listener
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     objects_receiver = Receiver(processing_queue, converter, producer_queue)
 
     # Init Producer
-    producer = Producer(cfg.produce_target_url(), producer_queue)
+    producer = Producer(cfg.produce_target_url(), "", producer_queue)
 
     # Start the App
     app = Application(stream_listener, objects_receiver, producer)

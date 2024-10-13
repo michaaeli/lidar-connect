@@ -1,5 +1,10 @@
 from src.data.detected_objects import DetectedObject
+
+# from data.detected_objects import DetectedObject
+
 from src.coordconversion import Converter
+
+# from coordconversion import Converter
 import logging
 import queue
 
@@ -33,7 +38,7 @@ class Receiver:
         result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
         # TODO check height
         data_to_convert.set_global_coordinates(result[0], result[1], 0.0)
-        return result
+        return data_to_convert
 
     def process(self):
         converted = self.convert()

@@ -1,6 +1,6 @@
-from stream_listener import StreamListener
-from receiver import Receiver
-from producer import Producer
+from src.stream_listener import StreamListener
+from src.receiver import Receiver
+from src.producer import Producer
 import threading
 import logging
 import time
@@ -39,7 +39,7 @@ class Application:
             try:
                 time.sleep(1)
             except KeyboardInterrupt:
-                logger.info("Received KeyboardInterrupt, stopping the app...")
+                logger.error("Received KeyboardInterrupt, stopping the app...")
                 self.close()
                 break
 
@@ -47,7 +47,7 @@ class Application:
         receiver_thread.join()
         producer_thread.join()
 
-        logger.info("App finished execution")
+        logger.error("App finished execution")
 
 
 if __name__ == "__main__":

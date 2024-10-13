@@ -1,4 +1,5 @@
 from src.data.detected_objects import detected_objects_from_json
+# from data.detected_objects import detected_objects_from_json
 import datetime
 import logging
 import socket
@@ -32,14 +33,16 @@ class StreamListener:
         """Executes graceful stop of connection consumption"""
         # TODO test
         self.socket_client.shutdown(1)
+        logger.error("Sent shutdown signal to the socket")
         # Close connection
         self.socket_client.close()
+        logger.error("Closed the socket")
 
     def wrapped_consume(self) -> None:
         try:
             self.consume_stream()
         except Exception as e:
-            print(e)
+            logger.error("wrapped_consume")
             self.close()
 
     def consume_stream(self) -> None:
@@ -47,7 +50,12 @@ class StreamListener:
         self.buffer = b""
         while True:  # TODO maybe add stop signal
             # Receive data from socket
-            response = self.socket_client.recv(self.buf_size)
+            try:
+                response = self.socket_client.recv(self.buf_size)
+            except Exception as e:
+                # logger.error("consume_stream",e)
+                logger.error("consume_stream")
+                return
 
             # Handle exit conditions
             if not response:  # TODO think

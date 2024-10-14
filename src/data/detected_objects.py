@@ -1,5 +1,4 @@
 from datetime import datetime
-import json
 from typing import List
 
 OBJECT_TYPE_NAME_MAP = {
@@ -58,8 +57,8 @@ class DetectedObject:
         """Converts object to JSON"""  # TODO
         res = "{"
         res += (
-            f""" "id":{self.id},"object_type":{self.object_type},"object_name":{self.object_name},\
-        "lat":{self.lat},"lon":{self.lon},"h":{self.h}"""
+            f""" "id":{self.id},"object_type":{self.object_type},"object_name":"{self.object_name}",\
+"lat":{self.lat},"lon":{self.lon},"h":{self.h},"time":"{self.time}" """
             + "}"
         )
         return res
@@ -86,7 +85,7 @@ def detected_objects_to_json(objects: List[DetectedObject]) -> str:
 
 
 def detected_objects_list_to_json_bytes(objects: List[DetectedObject]) -> bytes:
-    return bytes(detected_objects_from_json(objects), "utf-8")
+    return bytes(detected_objects_to_json(objects), "utf-8")
 
 
 def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]:

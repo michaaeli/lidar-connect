@@ -51,9 +51,22 @@ class DataStreamServer:
                 self.total_sent_bytes += sent
 
     def send_test_data_perpetually(self) -> None:
-        bbb = '{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.124541","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538539,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'  # noqa
+        x, y = 0, 0
+        d = 1.5
         # msg = self.socket_stream_server._data_to_packed_bytes(bbb)[0]
         while True:
+            t = int(time.time() * 1000)
+            x += d
+            y += d
+            bbb = (
+                """{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":" """
+                + str(x)
+                + """ ","y":" """
+                + str(y)
+                + """ ","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":" """
+                + str(t)
+                + """ ","zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}"""
+            )  # noqa
             self.send_data(bbb)
             print("sent msg")
             time.sleep(1)

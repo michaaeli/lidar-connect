@@ -25,6 +25,7 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
             # Custom endpoint logic
             self.send_response(200)
             self.send_header("Content-type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
             self.wfile.write(detected_objects_list_to_json_bytes(self.return_q))
             self.return_q.clear()
@@ -33,6 +34,14 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
             self.wfile.write(b'{"error": "Not Found"}')
+
+    def do_OPTIONS(self):
+        # Handle preflight requests for CORS (OPTIONS method)
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
 
 
 class Producer:

@@ -192,5 +192,5 @@ if __name__ == "__main__":
     socket_stream_server.open_stream()
     try:
         socket_stream_server.send_test_data_perpetually()
-    except:
+    except Exception:
         socket_stream_server.close()

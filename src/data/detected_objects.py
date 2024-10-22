@@ -57,8 +57,18 @@ class DetectedObject:
         """Converts object to JSON"""  # TODO
         res = "{"
         res += (
-            f""" "id":{self.id},"object_type":{self.object_type},"object_name":"{self.object_name}",\
-"lat":{self.lat},"lon":{self.lon},"h":{self.h},"time":"{self.time}" """
+            f"""
+            "id":{self.id},
+            "object_type":{self.object_type},
+            "object_name":"{self.object_name}",
+            "object_width": {self.object_width},
+            "object_length": {self.object_length},
+            "object_height": {self.object_height},
+            "speed": {self.speed},
+            "lat":{self.lat},
+            "lon":{self.lon},
+            "h":{self.h},
+            "time":"{self.time}" """
             + "}"
         )
         return res

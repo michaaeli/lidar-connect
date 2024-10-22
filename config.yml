@@ -3,10 +3,10 @@ data_stream:
   port: 3399
 
 lidar_coords:
-  lat1: 40.444223
-  lon1: -79.958145
-  lat2: 40.444456
-  lon2: -79.958182
+  lidar_lat: 40.444223
+  lidar_lon: -79.958145
+  ref_lat: 40.444456
+  ref_lon: -79.958182
 
 producer:
   target_url: "http://localhost:3000/"

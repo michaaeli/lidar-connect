@@ -15,20 +15,36 @@ logger = logging.getLogger(__name__)
 
 
 class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
-    def __init__(self, return_q: list, *args, **kwargs):
+    def __init__(self, return_q: list, lidar_pos: str, *args, **kwargs):
         # Store dynamic data in the handler instance
         self.return_q = return_q
+        self.lidar_pos = bytes(lidar_pos, "utf-8")
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
+        print(self.path)
         if self.path == "/":
             # Custom endpoint logic
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            self.wfile.write(detected_objects_list_to_json_bytes(self.return_q))
-            self.return_q.clear()
+            try:
+                self.wfile.write(detected_objects_list_to_json_bytes(self.return_q))
+                self.return_q.clear()
+            except Exception as e:
+                logger.error(e)
+        elif self.path == "/lidar":
+            print(self.lidar_pos)
+            # Custom endpoint logic
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            try:
+                self.wfile.write(self.lidar_pos)
+            except Exception as e:
+                logger.error(e)
         else:
             # Default 404 response for unknown paths
             self.send_response(404)
@@ -51,12 +67,17 @@ class Producer:
 
     # TODO IMPLEMENT
     def __init__(
-        self, produce_url: str, healthcheck_url: str, queue: queue.Queue
+        self,
+        produce_url: str,
+        healthcheck_url: str,
+        queue: queue.Queue,
+        lidar_pos: str,
     ) -> None:
         self.url = produce_url
         self.health_url = healthcheck_url
         self.q = queue
         self.stop_signal = False
+        self.lidar_pos = lidar_pos
 
         self.host = "localhost"
         self.port = 5000
@@ -64,7 +85,7 @@ class Producer:
         self.server = HTTPServer(
             (self.host, self.port),
             lambda *args, **kwargs: CustomHTTPRequestHandler(
-                self.server_q, *args, **kwargs
+                self.server_q, self.lidar_pos, *args, **kwargs
             ),
         )
 

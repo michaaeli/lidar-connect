@@ -1,39 +1,21 @@
-import time
+from src.stream_listener import StreamListener
+import threading
 import unittest
 import struct
 import socket
-import json
 import queue
-from src.stream_listener import StreamListener
-import threading
+import json
+import time
 
-TEST_DATA = {
-    "cmd": "2001",
-    "object_list": [
-        {
-            "height": "1.414932",
-            "length": "1.607635",
-            "length_type": "00",
-            "object_id": "1138815",
-            "object_timestamp": "467022",
-            "object_type": "2",
-            "speed": "0.144000",
-            "width": "0.613869",
-            "x": "-0.849668",
-            "y": "-2.122374",
-            "z": "8.128756",
-            "zone_id": "null",
-        }
-    ],
-    "server_ip": "0.0.0.0",
-    "sys_timestamp": 1719250538359,
-    "zone_list": [
-        {"zone_id": "11388400", "zone_name": "11388SOUTH00", "zone_type": "1"}
-    ],
-}
+TEST_DATA = '{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":"-0.849668","y":"-2.124541","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":1719250538539,"zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}'  # noqa
 
 
 class DataStreamServer:
+    """
+    Socket stream server. Sends data to socket client.
+
+    """
+
     def __init__(self, host: str, port: int, package_len: int = 1024) -> None:
         self.host = host
         self.port = port
@@ -68,6 +50,27 @@ class DataStreamServer:
                 totalsent += sent
                 self.total_sent_bytes += sent
 
+    def send_test_data_perpetually(self) -> None:
+        x, y = 0, 0
+        d = 1.5
+        # msg = self.socket_stream_server._data_to_packed_bytes(bbb)[0]
+        while True:
+            t = int(time.time() * 1000)
+            x += d
+            y += d
+            bbb = (
+                """{"cmd":"2001","object_list":[{"height":"1.414932","length":"1.607635","length_type":"00","object_id":"1138815","object_timestamp":"467222","object_type":"2","speed":"0.144000","width":"0.613869","x":" """
+                + str(x)
+                + """ ","y":" """
+                + str(y)
+                + """ ","z":"8.138049","zone_id":"null"}],"server_ip":"0.0.0.0","sys_timestamp":" """
+                + str(t)
+                + """ ","zone_list":[{"zone_id":"11388400","zone_name":"11388SOUTH00","zone_type":"1"}]}"""
+            )  # noqa
+            self.send_data(bbb)
+            print("sent msg")
+            time.sleep(1)
+
     def _data_to_packed_bytes(self, data) -> list[bytes]:
         """Transforms data into list of byte packages"""
         # To JSON
@@ -98,7 +101,7 @@ class DataStreamServer:
         return result
 
     def close(self) -> None:
-        self.conn.shutdown(1)
+        self.conn.shutdown(socket.SHUT_RDWR)
         self.sock.close()
 
 
@@ -179,3 +182,15 @@ class TestStreamListener(unittest.TestCase):
             self.socket_stream_server.total_sent_bytes, expected_number_of_sent_bytes
         )
         self.assertEqual(self.q.qsize(), 1)
+
+
+if __name__ == "__main__":
+    host = "localhost"
+    port = PORT
+    q = queue.Queue()
+    socket_stream_server = DataStreamServer(host, port, package_len=PACKAGE_LEN)
+    socket_stream_server.open_stream()
+    try:
+        socket_stream_server.send_test_data_perpetually()
+    except:
+        socket_stream_server.close()

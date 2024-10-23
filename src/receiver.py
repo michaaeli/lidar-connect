@@ -1,50 +1,64 @@
-from src.conversion import ConvertObject
-from data.detected_objects import DetectedObject
+from src.data.detected_objects import DetectedObject
+
+# from data.detected_objects import DetectedObject
+
+from src.coordconversion import Converter
+
+# from coordconversion import Converter
+import logging
 import queue
 
-
-class Data:
-    # TODO Implement
-    def __init__(self) -> None:
-        pass
-
-    # TODO Implement
-    def get_data(self) -> DetectedObject:
-        return None
+logger = logging.getLogger(__name__)
 
 
 class Receiver:
+    """
+    Processes queue of detected objects, applies coordinates conversion, pushes results to the result queue.
+    **Blocks on empty queue**
+    """
+
     def __init__(
         self,
-        logger,
-        data_source: Data,
-        converter: ConvertObject,
+        processing_queue: queue.Queue,
+        converter: Converter,
         result_queue: queue.Queue,
     ):
-        self.logger = logger
-        self.logger.info("Receiver initialized")
-        self.data_source = data_source
+        self.processing_queue = processing_queue
         self.converter = converter
         self.result_queue = result_queue
 
+        self.stop_signal: bool = False
+        self.is_running: bool = False
+        self.total_processed_objects: int = 0
+
     def convert(self):
-        data_to_convert = self.data_source.get_data()
-        # test code
-
-        result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
+        data_to_convert: DetectedObject = self.processing_queue.get()
+        if self.stop_signal:
+            return None
+        # result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
+        result = self.converter.get_final_coords(data_to_convert.y, data_to_convert.z) # TODO debug
+        # TODO check height
         data_to_convert.set_global_coordinates(result[0], result[1], 0.0)
-        if result[0] != float or result[1] != float:
-            self.logger.error("not a float")
-        return result
-
-    def enqueue(self):
-        self.result_queue.put(self.convert())
-        if self.result_queue.qsize() <= 0:
-            self.logger.error("0 or less entries")
-        else:
-            self.logger.info("new entry queued")
-        return self.result_queue
+        return data_to_convert
 
     def process(self):
-        self.convert()
-        self.enqueue()
+        converted = self.convert()
+        if converted is None:
+            return
+        self.result_queue.put(converted)
+        self.total_processed_objects += 1
+
+    def close(self):
+        self.stop_signal = True
+
+    def start_processing(self):
+        """
+        Processes objects queue until stopped.
+        """
+        logger.info("Receiver started processing")
+        self.is_running = True
+        while not self.stop_signal:
+            self.process()
+
+        self.is_running = False
+        logger.info("Receiver stopped processing")

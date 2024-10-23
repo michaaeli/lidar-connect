@@ -1,5 +1,5 @@
-import unittest
 from src.geolib import compute_destination_point
+import unittest
 
 
 class TestGeolib(unittest.TestCase):

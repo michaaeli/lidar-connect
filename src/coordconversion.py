@@ -1,13 +1,16 @@
-import math
+from src.geolib import compute_destination_point
+# from geolib import compute_destination_point
 import numpy as np
 import pyproj
-from src.geolib import compute_destination_point
+import math
 
 
-class ConvertObject:
-    def __init__(self, logger, lat, lon, lat2, lon2):
-        self.logger = logger
-        self.logger.info("Converter Initialized")
+class Converter:
+    """
+    Converts local XYZ coordinates to global Lat/Lon/Height coordinates.
+    """
+
+    def __init__(self, lat, lon, lat2, lon2):
         self.lat = lat
         self.lon = lon
         self.lat2 = lat2
@@ -23,6 +26,9 @@ class ConvertObject:
 
     def get_final_coords(self, x, y) -> list[float]:
         """Returns [lat, lon]"""
+        # b = x
+        # x = y
+        # y = -b
         d = math.sqrt(x * x + y * y)
         final_bearing = self.az
         cos_alpha = x / d

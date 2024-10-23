@@ -1,5 +1,5 @@
-from typing import List
 from datetime import datetime
+from typing import List
 
 OBJECT_TYPE_NAME_MAP = {
     0: "Unknown",
@@ -20,9 +20,9 @@ class DetectedObject:
         z: float,
         time: datetime,
         object_type: int,
-        width: float = 0,
-        length: float = 0,
-        height: float = 0,
+        object_width: float = 0,
+        object_length: float = 0,
+        object_height: float = 0,
         speed: float = 0,
     ) -> None:
         self.id = id
@@ -32,10 +32,14 @@ class DetectedObject:
         self.time = time
         self.object_type = object_type
         self.object_name = OBJECT_TYPE_NAME_MAP[object_type]
-        self.width = width
-        self.length = length
-        self.height = height
+        self.object_width = object_width
+        self.object_length = object_length
+        self.object_height = object_height
         self.speed = speed
+
+        self.lat = 0
+        self.lon = 0
+        self.h = 0
 
     def get_position(self) -> List[float]:
         """Returns local x,y,z coordinates"""
@@ -51,15 +55,37 @@ class DetectedObject:
 
     def to_json(self) -> str:
         """Converts object to JSON"""  # TODO
-        return ""
+        res = "{"
+        res += (
+            f""" "id":{self.id},"object_type":{self.object_type},"object_name":"{self.object_name}",\
+"lat":{self.lat},"lon":{self.lon},"h":{self.h},"time":"{self.time}" """
+            + "}"
+        )
+        return res
 
     def __str__(self) -> str:
-        return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.width}\n \
-        Length: {self.length}\nHeight: {self.height}\nTime: {self.time}"
+        return f"ID: {self.id}\nObject Type: {self.object_name}\nSpeed: {self.speed}\nWidth: {self.object_width}\n \
+        Length: {self.object_length}\nHeight: {self.object_height}\nTime: {self.time}"
 
 
 def convert_system_timestamp_to_datetime(ts: int) -> datetime:
     return datetime.fromtimestamp(ts / 1000)
+
+
+def detected_objects_to_json(objects: List[DetectedObject]) -> str:
+    """Packs list of DetectedObjects into json string"""
+    result = """{"objects": ["""
+    encoded = []
+    for obj in objects:
+        encoded.append(obj.to_json())
+    result += str.join(",", encoded)
+    result += "]}"
+
+    return result
+
+
+def detected_objects_list_to_json_bytes(objects: List[DetectedObject]) -> bytes:
+    return bytes(detected_objects_to_json(objects), "utf-8")
 
 
 def detected_objects_from_json(parsed_json_object: dict) -> list[DetectedObject]:

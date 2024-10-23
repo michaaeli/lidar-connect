@@ -22,7 +22,6 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
-        print(self.path)
         if self.path == "/":
             # Custom endpoint logic
             self.send_response(200)
@@ -34,6 +33,7 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.return_q.clear()
             except Exception as e:
                 logger.error(e)
+                
         elif self.path == "/lidar":
             print(self.lidar_pos)
             # Custom endpoint logic

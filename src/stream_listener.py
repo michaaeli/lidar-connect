@@ -42,7 +42,7 @@ class StreamListener:
         try:
             self.consume_stream()
         except Exception as e:
-            logger.error("wrapped_consume")
+            logger.error("wrapped_consume",e)
             self.close()
 
     def consume_stream(self) -> None:
@@ -98,7 +98,7 @@ class StreamListener:
                 break
             message = self.buffer[6:message_length-2]  # fmt: skip
             parsed = json.loads(message)
-            parsed = json.loads(parsed)
+            # parsed = json.loads(parsed) 
 
             # Write detected message
             messages.append(parsed)

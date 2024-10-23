@@ -7,10 +7,10 @@ class Config:
             self.data = yaml.safe_load(f)
             self.datastream_host = self.data["data_stream"]["host"]
             self.datastream_port = self.data["data_stream"]["port"]
-            self.lat1 = self.data["lidar_coords"]["lat1"]
-            self.lon1 = self.data["lidar_coords"]["lon1"]
-            self.lat2 = self.data["lidar_coords"]["lat2"]
-            self.lon2 = self.data["lidar_coords"]["lon2"]
+            self.lidar_lat = self.data["lidar_coords"]["lidar_lat"]
+            self.lidar_lon = self.data["lidar_coords"]["lidar_lon"]
+            self.ref_lat = self.data["lidar_coords"]["ref_lat"]
+            self.ref_lon = self.data["lidar_coords"]["ref_lon"]
             self.target_url = self.data["producer"]["target_url"]
 
     def stream_host(self) -> str:
@@ -23,7 +23,12 @@ class Config:
         """
         Returns lidar location Lat,Lon with callibration point Lat,Lon
         """
-        return [self.lat1, self.lon1, self.lat2, self.lon2]
+        return [self.lidar_lat, self.lidar_lon, self.ref_lat, self.ref_lon]
+
+    def get_json_lidar_position(self):
+        lidar = "{" + f'"lat":{self.lidar_lat},"lon":{self.lidar_lon}' + "}"
+        ref = "{" + f'"lat":{self.ref_lat},"lon":{self.ref_lon}' + "}"
+        return "{" + f'"lidar":{lidar}, "ref":{ref}' + "}"
 
     def produce_target_url(self):
         return self.target_url

@@ -9,28 +9,6 @@ import queue
 import sys
 
 
-# class Server:
-#     def __init__(self, logger, url):
-#         self.logger = logger
-#         self.logger.info("Server Initialized")
-#         self.url = url
-#         self.check_status()
-
-#     def check_status(self):
-#         try:
-#             response = requests.get(self.url)
-#             if response.status_code == 201:
-#                 print("Server is up.")
-#                 return True
-#         except Exception:
-#             self.logger.error("0 or less entries")
-#             raise Exception("Make sure everything is running")
-
-#     def send_objects(self, data):
-#         res = requests.post(url=url, json=data)
-#         print(res.text)
-
-
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
@@ -53,7 +31,7 @@ if __name__ == "__main__":
     objects_receiver = Receiver(processing_queue, converter, producer_queue)
 
     # Init Producer
-    producer = Producer(cfg.produce_target_url(), "", producer_queue)
+    producer = Producer(cfg.produce_target_url(), "", producer_queue, cfg.get_json_lidar_position())
 
     # Start the App
     app = Application(stream_listener, objects_receiver, producer)

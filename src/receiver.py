@@ -35,8 +35,7 @@ class Receiver:
         data_to_convert: DetectedObject = self.processing_queue.get()
         if self.stop_signal:
             return None
-        # result = self.converter.get_final_coords(data_to_convert.x, data_to_convert.y)
-        result = self.converter.get_final_coords(data_to_convert.y, data_to_convert.z) # TODO debug
+        result = self.converter.get_final_coords(data_to_convert.y, data_to_convert.z)
         # TODO check height
         data_to_convert.set_global_coordinates(result[0], result[1], 0.0)
         return data_to_convert

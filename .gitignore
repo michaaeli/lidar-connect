@@ -8,3 +8,4 @@ venv
 .coverage
 coverage.xml
 flake8stats.txt
+lidar-connect.log

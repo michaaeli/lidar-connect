@@ -21,6 +21,8 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
+        # TODO add handle for lidar coords
+        
         if self.path == "/":
             # Custom endpoint logic
             self.send_response(200)

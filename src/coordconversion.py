@@ -26,6 +26,9 @@ class Converter:
 
     def get_final_coords(self, x, y) -> list[float]:
         """Returns [lat, lon]"""
+        # b = x
+        # x = y
+        # y = -b
         d = math.sqrt(x * x + y * y)
         final_bearing = self.az
         cos_alpha = x / d

@@ -106,7 +106,7 @@ class DataStreamServer:
 
 
 PACKAGE_LEN = 1024
-PORT = 3399
+PORT = 3380
 
 
 class TestStreamListener(unittest.TestCase):
